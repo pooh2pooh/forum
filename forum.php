@@ -14,7 +14,7 @@
 
 	<main class="w-100 m-auto">
 
-		<?php
+<?php
 
 isset($_SESSION['AUTH']) ?: die('Error! Not Auth :(');
 
@@ -39,7 +39,7 @@ foreach ($topics as $row) {
 				</div>
 			</a>
 		</div>
-		<?php
+<?php
 }
 ?>
 	</main>
