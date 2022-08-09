@@ -34,14 +34,13 @@ $posts = $stdout->ListPosts($_GET['topic_id']);
 
 ?>
 
-		<div class="px-5 mt-1 mb-3">
+		<div class="px-5 pt-1 pb-3 mb-3 bg-dark text-white">
 			<form action="read_topic.php?topic_id=<?=$_GET['topic_id']?>" method="post">
 				<div class="mb-1">
-					<label for="exampleFormControlTextarea1" class="form-label">Write Your Post!</label>
-					<textarea class="form-control" id="exampleFormControlTextarea1" name="POST" rows="6"></textarea>
+					<textarea class="form-control border-0 bg-dark text-white" placeholder="Что ты хочешь сказать..." name="POST" rows="6"></textarea>
 				</div>
-				<div class="btn-group" role="group" aria-label="Basic example">
-					<button type="submit" class="btn btn-info px-5"><i class="bi bi-send-fill mx-auto mb-1"></i> Send</button>
+				<div class="btn-group py-2" role="group" aria-label="Basic example">
+					<button type="submit" class="btn btn-primary bg-primary bg-gradient btn-lg px-5"><i class="bi bi-send-fill mx-auto mb-1"></i> Отправить</button>
 				</div>
 			</form>
 		</div>
@@ -75,6 +74,8 @@ foreach ($posts as $row) {
 <?php
 }
 ?>
+
+		<hr class="pt-5">
 	</main>
 
 

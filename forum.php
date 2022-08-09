@@ -35,7 +35,7 @@ foreach ($topics as $row) {
 						<h6 class="mb-0"><?=$row['name']?></h6>
 						<p class="mb-0 opacity-75"><?=$stdout->FirstPost($row['id'])?></p>
 					</div>
-					<small class="opacity-50 text-nowrap"><?=$row['date'] . ' by ' . $row['author']?></small>
+					<small class="opacity-50 text-nowrap"><?=$row['date'] . ', ' . $row['author']?></small>
 				</div>
 			</a>
 		</div>

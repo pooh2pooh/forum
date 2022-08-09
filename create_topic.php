@@ -28,19 +28,19 @@ if (isset($_POST['NAME']) && isset($_POST['POST'])) {
 ?>
 
 		<div class="p-5">
-			<h1 class="text-center">Creating New Topic</h1>
+			<h1 class="text-center">Создание нового топика</h1>
 			<form action="create_topic.php" method="post">
 				<div class="mb-3">
-					<label for="exampleFormControlInput1" class="form-label">Name</label>
-					<input type="text" class="form-control" id="exampleFormControlInput1" name="NAME" placeholder="Coding with Love <3">
+					<label for="exampleFormControlInput1" class="form-label">Название</label>
+					<input type="text" class="form-control" id="exampleFormControlInput1" name="NAME" placeholder="Топик про музыку">
 				</div>
 				<div class="mb-3">
-					<label for="exampleFormControlTextarea1" class="form-label">First post</label>
-					<textarea class="form-control" id="exampleFormControlTextarea1" name="POST" rows="6"></textarea>
+					<label for="exampleFormControlTextarea1" class="form-label">Тема топика</label>
+					<textarea class="form-control" id="exampleFormControlTextarea1" name="POST" placeholder="Мой любимый плейлист" rows="6"></textarea>
 				</div>
 
 				<div class="btn-group w-100" role="group" aria-label="Basic example">
-					<button type="submit" class="btn btn-success fw-bold">Create</button>
+					<button type="submit" class="btn btn-success bg-success bg-gradient btn-lg fw-bold">Создать</button>
 				</div>
 			</form>
 		</div>
