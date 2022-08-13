@@ -31,6 +31,12 @@ class stdout {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	function GetTopic($id)
+	{
+		$stmt = $this->db->query("SELECT * FROM topics WHERE id = $id");
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+	}
+
 	function ListPosts($topic_id)
 	{
 
@@ -42,7 +48,7 @@ class stdout {
 	function FirstPost($topic_id)
 	{
 
-		$stmt = $this->db->prepare("SELECT * FROM posts WHERE topic_id = :topic_id ORDER BY id DESC");
+		$stmt = $this->db->prepare("SELECT * FROM posts WHERE topic_id = :topic_id ORDER BY id");
 		$stmt->execute(['topic_id' => $topic_id]);
 		$post = $stmt->fetch(PDO::FETCH_LAZY);
 		return preg_replace('/https:\/\/soundcloud.com\/\S*/', '&#127925;', $post['post']);

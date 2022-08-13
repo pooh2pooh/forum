@@ -19,24 +19,44 @@
 isset($_SESSION['AUTH']) ?: die('Error! Not Auth :(');
 
 require "stdin.class.php";
+require "stdout.class.php";
+
 $stdin = new stdin();
+$stdout = new stdout();
 
 if (isset($_POST['NAME']) && isset($_POST['POST'])) {
-	$stdin->CreateTopic($_POST['NAME'], $_POST['POST'], $_SESSION['AUTH']) ? header('Location: /forum.php') : die('Error! Not Create New Topic :(');
-}
+
+	$cover = '';
+
+	if (isset($_FILES['COVER']['name']) && !empty($_FILES['COVER']['name'])) {
+
+		$upload_dir_cover = 'covers/';
+		$cover = $upload_dir_cover . basename($_FILES['COVER']['name']);
+
+		if (!move_uploaded_file($_FILES['COVER']['tmp_name'], $cover)) {
+			die('Error! Cover not upload.');
+		}
+	}
+
+	$stdin->CreateTopic($_POST['NAME'], $_POST['POST'], $_SESSION['AUTH'], $cover) ? header('Location: /forum.php') : die('Error! Not Create New Topic :(');
+} 
 
 ?>
 
 		<div class="p-5">
 			<h1 class="text-center">Создание нового топика</h1>
-			<form action="create_topic.php" method="post">
+			<form action="create_topic.php" method="post" enctype="multipart/form-data">
 				<div class="mb-3">
-					<label for="exampleFormControlInput1" class="form-label">Название</label>
-					<input type="text" class="form-control" id="exampleFormControlInput1" name="NAME" placeholder="Топик про музыку">
+					<label for="topicNameInput" class="form-label">Название</label>
+					<input type="text" class="form-control" id="topicNameInput" name="NAME" placeholder="Топик про музыку">
 				</div>
 				<div class="mb-3">
-					<label for="exampleFormControlTextarea1" class="form-label">Тема топика</label>
-					<textarea class="form-control" id="exampleFormControlTextarea1" name="POST" placeholder="Мой любимый плейлист" rows="6"></textarea>
+					<label for="topicCoverInput" class="form-label">Обложка</label>
+					<input type="file" class="form-control" id="topicCoverInput" name="COVER" accept=".jpg,.jpeg,.png">
+				</div>
+				<div class="mb-3">
+					<label for="topicFirstPostInput" class="form-label">Тема топика</label>
+					<textarea class="form-control" id="topicFirstPostInput" name="POST" placeholder="Мой любимый плейлист" rows="6"></textarea>
 				</div>
 
 				<div class="btn-group w-100" role="group" aria-label="Basic example">
@@ -65,7 +85,7 @@ if (isset($_POST['NAME']) && isset($_POST['POST'])) {
 					</li>
 					<li>
 						<a href="#" class="nav-link text-white">
-							<i class="bi bi-bug-fill mx-auto mb-1" style="font-size: 2rem;"></i>
+							<i class="bi bi-incognito mx-auto mb-1" style="font-size: 2rem;"></i>
 						</a>
 					</li>
 				</ul>

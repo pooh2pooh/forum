@@ -14,7 +14,7 @@
 
 	<main class="w-100 m-auto">
 
-<?php
+		<?php
 
 isset($_SESSION['AUTH']) ?: die('Error! Not Auth :(');
 
@@ -30,11 +30,13 @@ if (isset($_POST['POST']) && isset($_GET['topic_id']) && strlen($_POST['POST'] >
 require "stdout.class.php";
 $stdout = new stdout();
 
+$topic = $stdout->GetTopic($_GET['topic_id']);
 $posts = $stdout->ListPosts($_GET['topic_id']);
 
 ?>
 
-		<div class="px-5 pt-1 pb-3 mb-3 bg-dark text-white">
+		<div class="px-5 pt-1 pb-3 mb-3 bg-dark text-white" style="height: 300px; background: url('<?php strlen($topic['cover']) > 0 ? print $topic['cover'] : print 'https://via.placeholder.com/2560'; ?>') #99f no-repeat center;">
+			<!-- <h1 class="text-center"><?=$topic['name']?></h1>	
 			<form action="read_topic.php?topic_id=<?=$_GET['topic_id']?>" method="post">
 				<div class="mb-1">
 					<textarea class="form-control border-0 bg-dark text-white" placeholder="Что ты хочешь сказать..." name="POST" rows="6"></textarea>
@@ -42,10 +44,29 @@ $posts = $stdout->ListPosts($_GET['topic_id']);
 				<div class="btn-group py-2" role="group" aria-label="Basic example">
 					<button type="submit" class="btn btn-primary bg-primary bg-gradient btn-lg px-5"><i class="bi bi-send-fill mx-auto mb-1"></i> Отправить</button>
 				</div>
-			</form>
+			</form> -->
 		</div>
 
-<?php
+		<!-- Editor.js Modal -->
+		<div class="modal fade" id="modalEditor" aria-hidden="true" aria-labelledby="ModalEditor" tabindex="-1">
+			<div class="modal-dialog modal-fullscreen">
+
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="ModalEditor">Сообщение:</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body" id="editorjs"></div>
+					<div class="modal-footer">
+						<button class="btn btn-primary btn-lg px-5 bg-primary bg-gradient"><i class="bi bi-send-fill mx-auto mb-1"></i> Отправить</button>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+		<?php
 
 foreach ($posts as $row) {
 
@@ -58,7 +79,7 @@ foreach ($posts as $row) {
 					<small class="text-muted"><?=$row['date']?></small>
 				</div>
 
-<?php
+				<?php
 
 
 	$sc_url_pattern = "/https:\/\/soundcloud.com\/\S*/";
@@ -71,7 +92,7 @@ foreach ($posts as $row) {
 			</a>
 		</div>
 
-<?php
+		<?php
 }
 ?>
 
@@ -91,13 +112,13 @@ foreach ($posts as $row) {
 						</a>
 					</li>
 					<li>
-						<a href="#" class="nav-link text-dark disabled">
-							<i class="bi bi-chat-square-dots-fill mx-auto mb-1" style="font-size: 2rem;"></i>
+						<a class="nav-link text-primary" data-bs-toggle="modal" href="#modalEditor" role="button">
+							<i class="bi bi-send-plus mx-auto mb-1" style="font-size: 2rem;"></i>
 						</a>
 					</li>
 					<li>
 						<a href="#" class="nav-link text-white">
-							<i class="bi bi-bug-fill mx-auto mb-1" style="font-size: 2rem;"></i>
+							<i class="bi bi-incognito mx-auto mb-1" style="font-size: 2rem;"></i>
 						</a>
 					</li>
 				</ul>
@@ -106,6 +127,20 @@ foreach ($posts as $row) {
 
 	</footer>
 
+	<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+	<script>
+		const editor = new EditorJS({
+			holder: 'editorjs',
+			tools: {
+				header: Header,
+				list: List,
+				image: SimpleImage
+			},
+		});
+	</script>
 	<script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>

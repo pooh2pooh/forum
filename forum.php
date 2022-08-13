@@ -29,7 +29,7 @@ foreach ($topics as $row) {
 
 		<div class="list-group">
 			<a href="read_topic.php?topic_id=<?=$row['id']?>" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-				<img src="https://github.com/twbs.png" alt="twbs" class="rounded-circle flex-shrink-0" width="32" height="32">
+			<img src="<?php strlen($row['cover']) > 0 ? print $row['cover'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$row['name'] . ' cover'; ?>" class="flex-shrink-0" width="128" height="128">
 				<div class="d-flex gap-2 w-100 justify-content-between">
 					<div>
 						<h6 class="mb-0"><?=$row['name']?></h6>
@@ -63,7 +63,7 @@ foreach ($topics as $row) {
 					</li>
 					<li>
 						<a href="#" class="nav-link text-white">
-							<i class="bi bi-bug-fill mx-auto mb-1" style="font-size: 2rem;"></i>
+							<i class="bi bi-incognito mx-auto mb-1" style="font-size: 2rem;"></i>
 						</a>
 					</li>
 				</ul>
