@@ -14,16 +14,27 @@
 
 	<main class="w-100 m-auto">
 
-		<?php
+<?php
 
 isset($_SESSION['AUTH']) ?: die('Error! Not Auth :(');
 
-if (isset($_POST['POST']) && isset($_GET['topic_id']) && strlen($_POST['POST'] >= 3)) {
+#if (isset($_POST['POST']) && isset($_GET['topic_id']) && strlen($_POST['POST'] >= 3)) {
 
-	require "stdin.class.php";
-	$stdin = new stdin();
+#require "stdin.class.php";
+#$stdin = new stdin();
 
-	$stdin->CreatePost($_SESSION['AUTH'], $_GET['topic_id'], $_POST['POST']) ? header("Location: read_topic.php?topic_id=$_GET[topic_id]") : die('Error! Not Create Post :(');
+#$stdin->CreatePost($_SESSION['AUTH'], $_GET['topic_id'], $_POST['POST']) ? header("Location: read_topic.php?topic_id=$_GET[topic_id]") : die('Error! Not Create Post :(');
+
+#}
+
+if(isset($_POST['blocks'])) {
+
+				require "stdin.class.php";
+				$stdin = new stdin();
+
+				require "parser.class.php";
+				
+				$stdin->CreatePost($_SESSION['AUTH'], $_GET['topic_id'], editorParser($_POST['blocks']));
 
 }
 
@@ -36,7 +47,7 @@ $posts = $stdout->ListPosts($_GET['topic_id']);
 ?>
 
 		<div class="px-5 pt-1 pb-3 mb-3 bg-dark text-white" style="height: 300px; background: url('<?php strlen($topic['cover']) > 0 ? print $topic['cover'] : print 'https://via.placeholder.com/2560'; ?>') #99f no-repeat center;">
-			<!-- <h1 class="text-center"><?=$topic['name']?></h1>	
+			<!-- <h1 class="text-center"><?=$topic['name']?></h1>
 			<form action="read_topic.php?topic_id=<?=$_GET['topic_id']?>" method="post">
 				<div class="mb-1">
 					<textarea class="form-control border-0 bg-dark text-white" placeholder="Что ты хочешь сказать..." name="POST" rows="6"></textarea>
@@ -58,7 +69,7 @@ $posts = $stdout->ListPosts($_GET['topic_id']);
 					</div>
 					<div class="modal-body" id="editorjs"></div>
 					<div class="modal-footer">
-						<button class="btn btn-primary btn-lg px-5 bg-primary bg-gradient"><i class="bi bi-send-fill mx-auto mb-1"></i> Отправить</button>
+					<button class="btn btn-primary btn-lg px-5 bg-primary bg-gradient" onclick="SendPost(<?=$_GET['topic_id']?>)"><i class="bi bi-send-fill mx-auto mb-1"></i> Отправить</button>
 					</div>
 				</div>
 
@@ -66,7 +77,7 @@ $posts = $stdout->ListPosts($_GET['topic_id']);
 			</div>
 		</div>
 
-		<?php
+<?php
 
 foreach ($posts as $row) {
 
@@ -79,11 +90,11 @@ foreach ($posts as $row) {
 					<small class="text-muted"><?=$row['date']?></small>
 				</div>
 
-				<?php
+<?php
 
 
-	$sc_url_pattern = "/https:\/\/soundcloud.com\/\S*/";
-	$sc_widget = "<iframe id='sc-widget' width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=$1&show_artwork=true'></iframe>";
+				$sc_url_pattern = "/https:\/\/soundcloud.com\/\S*/";
+				$sc_widget = "<iframe id='sc-widget' width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=$1&show_artwork=true'></iframe>";
 
 
 ?>
@@ -92,7 +103,7 @@ foreach ($posts as $row) {
 			</a>
 		</div>
 
-		<?php
+<?php
 }
 ?>
 
@@ -131,18 +142,10 @@ foreach ($posts as $row) {
 	<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
-	<script>
-		const editor = new EditorJS({
-			holder: 'editorjs',
-			tools: {
-				header: Header,
-				list: List,
-				image: SimpleImage
-			},
-		});
-	</script>
+	<script src="editor.js"></script>
 	<script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 </html>

@@ -14,7 +14,7 @@
 
 	<main class="w-100 m-auto">
 
-		<?php
+<?php
 
 isset($_SESSION['AUTH']) ?: die('Error! Not Auth :(');
 
@@ -26,20 +26,20 @@ $stdout = new stdout();
 
 if (isset($_POST['NAME']) && isset($_POST['POST'])) {
 
-	$cover = '';
+				$cover = '';
 
-	if (isset($_FILES['COVER']['name']) && !empty($_FILES['COVER']['name'])) {
+				if (isset($_FILES['COVER']['name']) && !empty($_FILES['COVER']['name'])) {
 
-		$upload_dir_cover = 'covers/';
-		$cover = $upload_dir_cover . basename($_FILES['COVER']['name']);
+								$upload_dir_cover = 'covers/';
+								$cover = $upload_dir_cover . basename($_FILES['COVER']['name']);
 
-		if (!move_uploaded_file($_FILES['COVER']['tmp_name'], $cover)) {
-			die('Error! Cover not upload.');
-		}
-	}
+								if (!move_uploaded_file($_FILES['COVER']['tmp_name'], $cover)) {
+												die('Error! Cover not upload.');
+								}
+				}
 
-	$stdin->CreateTopic($_POST['NAME'], $_POST['POST'], $_SESSION['AUTH'], $cover) ? header('Location: /forum.php') : die('Error! Not Create New Topic :(');
-} 
+				$stdin->CreateTopic($_POST['NAME'], $_POST['POST'], $_SESSION['AUTH'], $cover) ? header('Location: /forum.php') : die('Error! Not Create New Topic :(');
+}
 
 ?>
 

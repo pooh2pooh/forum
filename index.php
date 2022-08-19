@@ -14,7 +14,7 @@
 
 	<main class="form-signin w-100 m-auto">
 
-		<?php
+<?php
 
 require "stdout.class.php";
 $stdout = new stdout();
@@ -22,8 +22,8 @@ $stdout = new stdout();
 !isset($_SESSION['AUTH']) ?: header('Location: /forum.php');
 if (isset($_POST['USERNAME']) && isset($_POST['PASSWORD'])) {
 
-	($stdout->Auth($_POST['USERNAME'], $_POST['PASSWORD']) ? header('Location: /forum.php') : die('Error!')) ?: $_SESSION['AUTH'] = $_POST['USERNAME'];
-	
+				($stdout->Auth($_POST['USERNAME'], $_POST['PASSWORD']) ? header('Location: /forum.php') : die('Error!')) ?: $_SESSION['AUTH'] = $_POST['USERNAME'];
+
 }
 
 ?>
