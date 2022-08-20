@@ -8,6 +8,8 @@
 	<title>Forum</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="navbar.css">
+
 </head>
 
 <body>
@@ -44,26 +46,27 @@ foreach ($topics as $row) {
 ?>
 	</main>
 
+	<hr class="pb-5">
 
-	<footer class="fixed-bottom text-bg-dark">
+	<footer class="fixed-bottom bg-navbar">
 
 		<div class="container">
 			<div class="d-flex flex-wrap align-items-center justify-content-center">
 
 				<ul class="nav col-12 my-1 justify-content-around my-md-0 text-small">
 					<li>
-						<a href="forum.php" class="nav-link text-danger">
+						<a href="forum.php" class="nav-link disabled">
 							<i class="bi bi-bookmarks-fill mx-auto mb-1" style="font-size: 2rem;"></i>
 						</a>
 					</li>
 					<li>
-						<a href="create_topic.php" class="nav-link text-white">
+						<a href="create_topic.php" class="nav-link">
 							<i class="bi bi-bookmark-plus-fill mx-auto mb-1" style="font-size: 2rem;"></i>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="nav-link text-white">
-							<i class="bi bi-incognito mx-auto mb-1" style="font-size: 2rem;"></i>
+						<a href="#" class="nav-link">
+							<i class="bi bi-wrench-adjustable mx-auto mb-1" style="font-size: 2rem;"></i>
 						</a>
 					</li>
 				</ul>
