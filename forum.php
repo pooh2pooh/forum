@@ -66,7 +66,7 @@ foreach ($topics as $row) {
 					</li>
 					<li>
 						<a href="#" class="nav-link">
-							<i class="bi bi-wrench-adjustable mx-auto mb-1" style="font-size: 2rem;"></i>
+							<i class="bi bi-fingerprint mx-auto mb-1" style="font-size: 2rem;"></i>
 						</a>
 					</li>
 				</ul>
