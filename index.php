@@ -46,7 +46,7 @@ if (isset($_POST['USERNAME']) && isset($_POST['PASSWORD'])) {
 				</label>
 			</div>
 			<button class="w-100 btn btn-lg btn-primary bg-gradient" type="submit">Sign in</button>
-			<p class="mt-5 mb-3 text-muted">&copy; 2022</p>
+			<p class="mt-5 mb-3 text-muted">&copy; coding with love by pooh, 2022</p>
 		</form>
 	</main>
 
