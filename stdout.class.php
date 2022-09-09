@@ -22,7 +22,7 @@ class stdout {
 												return !strcmp($profile['username'], $username) && !strcmp($profile['password'], $password);
 								} else return false;
 
-				}
+				}				
 
 				function ListTopics()
 				{
@@ -40,7 +40,7 @@ class stdout {
 				function ListPosts($topic_id)
 				{
 
-								$stmt = $this->db->prepare("SELECT * FROM posts WHERE topic_id = :topic_id ORDER BY id DESC");
+								$stmt = $this->db->prepare("SELECT * FROM posts WHERE topic_id = :topic_id ORDER BY id");
 								$stmt->execute(['topic_id' => $topic_id]);
 								return $stmt->fetchAll(PDO::FETCH_ASSOC);
 				}
