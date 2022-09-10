@@ -31,10 +31,10 @@ foreach ($posts as $row)
 ?>
 
 
-		<div class="col-2">
+		<div class="d-none d-md-block col-md-2">
 			<img src="https://via.placeholder.com/120" class="img-fluid sticky-top" style="top: 10px;">
 		</div>
-		<div class="col-10 mb-1">
+		<div class="col-12 col-md-10 mb-1">
 			<h6>
 				<strong><?=$row['author']?></strong>
 				<small class="text-muted float-end" style="font-size: 0.6em"><?=date("d M Y H:i", strtotime($row['date']))?> 

@@ -83,7 +83,7 @@
 				<ul class="nav col-12 my-1 justify-content-around my-md-0 text-small">
 					<li>
 						<a href="forum.php" class="nav-link">
-							<i class="bi bi-bookmarks-fill mx-auto mb-1" style="font-size: 2rem;"></i>
+							<i class="bi bi-arrow-left mx-auto mb-1" style="font-size: 2rem;"></i>
 						</a>
 					</li>
 					<li>

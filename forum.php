@@ -38,8 +38,9 @@ foreach ($topics as $row)
 					<div>
 						<h6 class="mb-0"><?=$row['name']?></h6>
 						<p class="mb-0 opacity-75"><?=mb_substr($stdout->FirstPost($row['id']), 0, 120)?></p>
+						<small class="d-md-none opacity-50 text-nowrap"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?></small>
 					</div>
-					<small class="opacity-50 text-nowrap"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?></small>
+					<small class="d-none d-md-block opacity-50 text-nowrap"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?></small>
 				</div>
 			</a>
 		</div>
@@ -53,17 +54,15 @@ foreach ($topics as $row)
 
 
 	<footer class="fixed-bottom bg-navbar">
-
 		<div class="container">
 			<div class="d-flex flex-wrap align-items-center justify-content-center">
 				<ul class="nav col-12 my-1 justify-content-around my-md-0 text-small">
-					<li><a href="forum.php" class="nav-link"><i class="bi bi-bookmarks-fill mx-auto mb-1" style="font-size: 2rem;"></i> ФОРУМ</a></li>
+					<!-- <li><a href="forum.php" class="nav-link opacity-0"><i class="bi bi-bookmarks-fill mx-auto mb-1" style="font-size: 2rem;"></i> ФОРУМ</a></li> -->
 					<li><a href="create_topic.php" class="nav-link"><i class="bi bi-bookmark-plus-fill mx-auto mb-1" style="font-size: 2rem;"></i> НОВЫЙ ТОПИК</a></li>
 					<li class="text-nowrap"><a href="#" class="nav-link"><i class="bi bi-gear mx-auto mb-1" style="font-size: 2rem;"></i> НАСТРОЙКИ</a></li>
 				</ul>
 			</div>
 		</div>
-
 	</footer>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>

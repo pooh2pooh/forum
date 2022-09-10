@@ -36,11 +36,11 @@
 ?>
 
 <body>
-	<main class="w-100 m-auto">
+	<main class="w-100 m-auto pb-5">
 
 
-		<div class="m-5">
-			<h1 class="text-center">Создание нового топика</h1>
+		<div class="m-1 m-md-5">
+			<h1 class="text-center">Новый топик</h1>
 			<form action="create_topic.php" method="post" enctype="multipart/form-data">
 				<div class="mb-3">
 					<label for="topicNameInput" class="form-label">Название</label>
@@ -60,7 +60,7 @@
 				</div>
 			</form>
 		</div>
-		
+
 	</main>
 
 
@@ -71,14 +71,14 @@
 				<ul class="nav col-12 my-1 justify-content-around my-md-0 text-small">
 					<li>
 						<a href="forum.php" class="nav-link">
-							<i class="bi bi-bookmarks-fill mx-auto mb-1" style="font-size: 2rem;"></i>
+							<i class="bi bi-arrow-left mx-auto mb-1" style="font-size: 2rem;"></i>
 						</a>
 					</li>
-					<li>
-						<a href="create_topic.php" class="nav-link opacity-0">
+					<!-- <li>
+						<a href="create_topic.php" class="nav-link">
 							<i class="bi bi-bookmark-plus-fill mx-auto mb-1" style="font-size: 2rem;"></i>
 						</a>
-					</li>
+					</li> -->
 					<li>
 						<a href="#" class="nav-link">
 							<i class="bi bi-gear mx-auto mb-1" style="font-size: 2rem;"></i>
