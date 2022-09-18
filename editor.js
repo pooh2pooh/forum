@@ -7,7 +7,7 @@ const editor = new EditorJS({
 		image: SimpleImage,
 
 	},
-	data: {},
+	autofocus: true,
 });
 
 function SendPost(topic_id) {

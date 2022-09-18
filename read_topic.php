@@ -81,21 +81,9 @@
 		<div class="container">
 			<div class="d-flex flex-wrap align-items-center justify-content-center">
 				<ul class="nav col-12 my-1 justify-content-around my-md-0 text-small">
-					<li>
-						<a href="forum.php" class="nav-link">
-							<i class="bi bi-arrow-left mx-auto mb-1" style="font-size: 2rem;"></i>
-						</a>
-					</li>
-					<li>
-						<a class="nav-link" data-bs-toggle="modal" href="#modalEditor" role="button">
-							<i class="bi bi-send-plus mx-auto mb-1" style="font-size: 2rem;"></i> ЗАПОСТИТЬ
-						</a>
-					</li>
-					<li>
-						<a href="#" class="nav-link">
-							<i class="bi bi-gear mx-auto mb-1" style="font-size: 2rem;"></i>
-						</a>
-					</li>
+					<li class="text-center"><a href="forum.php" class="nav-link"><i class="bi bi-house mx-auto mb-1" style="font-size: 2rem;"></i><br>ГЛАВНАЯ</a></li>
+					<li class="text-center"><a class="nav-link" data-bs-toggle="modal" href="#modalEditor" role="button"><i class="bi bi-send-plus-fill mx-auto mb-1" style="font-size: 2rem;"></i><br>ЗАПОСТИТЬ</a></li>
+					<li class="text-center"><a href="#" class="nav-link"><i class="bi bi-gear mx-auto mb-1" style="font-size: 2rem;"></i><br>НАСТРОЙКИ</a></li>
 				</ul>
 			</div>
 		</div>
@@ -163,7 +151,7 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 				</div>
-				<div class="modal-body" id="editorjs"></div>
+				<div class="modal-body" id="editorjs" style="height: 100%"></div>
 				<div class="d-block d-md-none modal-footer">
 					<button class="btn btn-light btn-lg border px-5" onclick="SendPost(<?=$_GET['topic_id']?>)" data-bs-dismiss="modal" data-bs-target="#modalEditor" aria-label="Close">Отправить</button>
 				</div>

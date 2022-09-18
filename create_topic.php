@@ -28,7 +28,7 @@
 			$cover = $upload_dir_cover . basename($_FILES['COVER']['name']);
 
 			if (!move_uploaded_file($_FILES['COVER']['tmp_name'], $cover))
-				die('Error! Cover not upload.');
+				die('Ошибка! Не получилось загрузить обложку, не является допустимым файлом.<br><br>Если является допустимым файлом, не может быть перемещен по какой-либо причине, например права доступа');
 		}
 
 		$stdin->CreateTopic($_POST['NAME'], $_POST['POST'], $_SESSION['AUTH'], $cover) ? header('Location: /forum.php') : die('Error! Not Create New Topic :(');
@@ -67,23 +67,10 @@
 	<footer class="fixed-bottom bg-navbar">
 		<div class="container">
 			<div class="d-flex flex-wrap align-items-center justify-content-center">
-
 				<ul class="nav col-12 my-1 justify-content-around my-md-0 text-small">
-					<li>
-						<a href="forum.php" class="nav-link">
-							<i class="bi bi-arrow-left mx-auto mb-1" style="font-size: 2rem;"></i>
-						</a>
-					</li>
-					<!-- <li>
-						<a href="create_topic.php" class="nav-link">
-							<i class="bi bi-bookmark-plus-fill mx-auto mb-1" style="font-size: 2rem;"></i>
-						</a>
-					</li> -->
-					<li>
-						<a href="#" class="nav-link">
-							<i class="bi bi-gear mx-auto mb-1" style="font-size: 2rem;"></i>
-						</a>
-					</li>
+					<li class="text-center"><a href="forum.php" class="nav-link"><i class="bi bi-house mx-auto mb-1" style="font-size: 2rem;"></i><br>ГЛАВНАЯ</a></li>
+					<li class="text-center"><a href="create_topic.php" class="nav-link"><i class="bi bi-bookmark-plus-fill mx-auto mb-1" style="font-size: 2rem;"></i><br>НОВЫЙ ТОПИК</a></li>
+					<li class="text-center"><a href="#" class="nav-link"><i class="bi bi-gear mx-auto mb-1" style="font-size: 2rem;"></i><br>НАСТРОЙКИ</a></li>
 				</ul>
 			</div>
 		</div>
