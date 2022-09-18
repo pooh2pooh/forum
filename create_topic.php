@@ -28,7 +28,7 @@
 			$cover = $upload_dir_cover . basename($_FILES['COVER']['name']);
 
 			if (!move_uploaded_file($_FILES['COVER']['tmp_name'], $cover))
-				die('Ошибка! Не получилось загрузить обложку, не является допустимым файлом.<br><br>Если является допустимым файлом, не может быть перемещен по какой-либо причине, например права доступа');
+				die("Ошибка! Не получилось загрузить обложку, не является допустимым файлом или не может быть перемещен по какой-либо причине<br>$_FILES['COVER']['tmp_name'] - $cover");
 		}
 
 		$stdin->CreateTopic($_POST['NAME'], $_POST['POST'], $_SESSION['AUTH'], $cover) ? header('Location: /forum.php') : die('Error! Not Create New Topic :(');
