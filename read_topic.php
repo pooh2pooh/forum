@@ -63,6 +63,7 @@
 			<?php if(!strcasecmp($_SESSION['AUTH'], $topic['author'])) { ?>
 				<a class="btn btn-dark" data-bs-toggle="modal" href="#modalOptions" role="button"><i class="bi bi-pencil"></i> ИЗМЕНИТЬ</a>
 			<?php } ?>
+			<p class="lead"><?=$topic['name']?></p>
 		</div>
 
 		<!-- ПОСТЫ -->

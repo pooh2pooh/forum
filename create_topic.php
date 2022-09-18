@@ -5,13 +5,17 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Create Topic</title>
+	<title>Создать топик</title>
 	<link rel="stylesheet" href="bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 	<link rel="stylesheet" href="navbar.css">
 </head>
 
 <?php
+
+	#
+	#
+	$cover_size_limit = 8; # MB
 
 	#
 	# Закрываем страницу для не авторизованных пользователей
@@ -27,8 +31,13 @@
 			$upload_dir_cover = 'covers/';
 			$cover = $upload_dir_cover . basename($_FILES['COVER']['name']);
 
+			if ($_FILES['COVER']['size'] > 5000)
+			{
+				die("Максимальный размер обложки " . $cover_size_limit . "MB");
+			}
+
 			if (!move_uploaded_file($_FILES['COVER']['tmp_name'], $cover))
-				die("Ошибка! Не получилось загрузить обложку, не является допустимым файлом или не может быть перемещен по какой-либо причине<br>" . $_FILES['COVER']['tmp_name'] ." - " . $cover);
+				die("Ошибка! Не получилось загрузить обложку, не является допустимым файлом или не может быть перемещен по какой-либо причине.");
 		}
 
 		$stdin->CreateTopic($_POST['NAME'], $_POST['POST'], $_SESSION['AUTH'], $cover) ? header('Location: /forum.php') : die('Error! Not Create New Topic :(');
