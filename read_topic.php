@@ -68,7 +68,7 @@
 
 		<!-- ПОСТЫ -->
 		<div class="container p-md-5">
-			<div class="row">
+			<div class="row mb-5">
 
 				<?php require "posts.inc.php"; ?>
 
