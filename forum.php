@@ -18,19 +18,18 @@
 
 <?php
 
-isset($_SESSION['AUTH']) ?: die("<div style='padding: 5em;'><h1>Ошибка! Тебя тут не ждут :(</h1><a href='/'>Попробуй Авторизоваться</a></div>");
+	#
+	# Закрываем страницу для не авторизованных пользователей
+	require "auth.class.php";
 
-require "stdout.class.php";
-$stdout = new stdout();
+	$topics = $stdout->ListTopics();
 
-$topics = $stdout->ListTopics();
-
-foreach ($topics as $row)
-{
+	foreach ($topics as $row)
+	{
 
 ?>
 
-		<div class="list-group p-2 mx-5">
+		<div class="list-group p-2 mx-sm-5">
 			<a href="read_topic.php?topic_id=<?=$row['id']?>" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
 			<img src="<?php strlen($row['cover']) > 0 ? print $row['cover'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$row['name'] . ' cover'; ?>" class="flex-shrink-0" width="128" height="128">
 				<div class="d-flex gap-2 w-100 justify-content-between">
@@ -44,7 +43,7 @@ foreach ($topics as $row)
 			</a>
 		</div>
 <?php
-}
+	}
 ?>
 
 		<div class="pb-5"></div>
@@ -53,12 +52,12 @@ foreach ($topics as $row)
 
 
 	<footer class="fixed-bottom bg-navbar">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="d-flex flex-wrap align-items-center justify-content-center">
 				<ul class="nav col-12 my-1 justify-content-around my-md-0 text-small">
-					<li class="text-center"><a href="forum.php" class="nav-link"><i class="bi bi-house-fill mx-auto mb-1" style="font-size: 1.3rem;"></i><br>ГЛАВНАЯ</a></li>
-					<li class="text-center"><a href="create_topic.php" class="nav-link"><i class="bi bi-bookmark-plus mx-auto mb-1" style="font-size: 1.3rem;"></i><br>НОВЫЙ ТОПИК</a></li>
-					<li class="text-center"><a href="#" class="nav-link"><i class="bi bi-gear mx-auto mb-1" style="font-size: 1.3rem;"></i><br>НАСТРОЙКИ</a></li>
+					<li class="text-center small"><a href="forum.php" class="nav-link"><i class="bi bi-house-fill mx-auto mb-1" style="font-size: 1.3rem;"></i><br>ГЛАВНАЯ</a></li>
+					<li class="text-center small"><a href="create_topic.php" class="nav-link"><i class="bi bi-bookmark-plus mx-auto mb-1" style="font-size: 1.3rem;"></i><br>НОВЫЙ ТОПИК</a></li>
+					<li class="text-center small"><a href="#" class="nav-link"><i class="bi bi-gear mx-auto mb-1" style="font-size: 1.3rem;"></i><br>НАСТРОЙКИ</a></li>
 				</ul>
 			</div>
 		</div>

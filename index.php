@@ -30,7 +30,7 @@ if (isset($_POST['USERNAME']) && isset($_POST['PASSWORD'])) {
 ?>
 
 		<form action="/" method="post">
-			<h1 class="mb-3 fw-bold small text-danger">осталась 1 попытка</h1>
+			<h1 class="mb-3 fw-bold small text-warning">осталась 1 попытка</h1>
 
 			<div class="form-floating">
 				<input type="text" class="form-control" id="inputLogin" name="USERNAME" placeholder="username">
