@@ -23,31 +23,26 @@ $stdout = new stdout();
 !isset($_SESSION['AUTH']) ?: header('Location: /forum.php');
 if (isset($_POST['USERNAME']) && isset($_POST['PASSWORD'])) {
 
-				($stdout->Auth($_POST['USERNAME'], $_POST['PASSWORD']) ? header('Location: /forum.php') : die('<h1>Упс! Тебя тут не ждали,</h1>лучше больше не пытайся.')) ?: $_SESSION['AUTH'] = $_POST['USERNAME'];
+				($stdout->Auth($_POST['USERNAME'], $_POST['PASSWORD']) ? header('Location: /forum.php') : die("<div class='text-center py-5'><img class='img-fluid' src='system-page-cover.png'></div><!-- Что ты здесь хотел увидеть ? -->")) ?: $_SESSION['AUTH'] = $_POST['USERNAME'];
 
 }
 
 ?>
 
 		<form action="/" method="post">
-			<h1 class="h3 mb-3 fw-normal">осталась 1 попытка</h1>
+			<h1 class="mb-3 fw-bold small text-danger">осталась 1 попытка</h1>
 
 			<div class="form-floating">
 				<input type="text" class="form-control" id="inputLogin" name="USERNAME" placeholder="username">
-				<label for="inputLogin">дело</label>
+				<label for="inputLogin">позывной</label>
 			</div>
 			<div class="form-floating">
 				<input type="password" class="form-control" id="inputPassword" name="PASSWORD" placeholder="password">
-				<label for="inputPassword">времени</label>
+				<label for="inputPassword">пароль</label>
 			</div>
 
-			<div class="checkbox mb-3">
-				<label>
-					<input type="checkbox" value="remember-me"> запомнить (7 дн.)
-				</label>
-			</div>
-			<button class="w-100 btn btn-lg btn-primary bg-gradient" type="submit"><i class="bi bi-fingerprint h1"></i> приложи к экрану</button>
-			<p class="mt-5 mb-3 text-muted">Разбан платный, 1 млн. руб.<br>&copy; <strong>2022</strong>, скоро 2023</p>
+			<button class="w-100 btn btn-lg btn-primary bg-gradient mt-3" type="submit">Вход</button>
+			<p class="mt-5 mb-3 text-muted">С <i class="bi bi-heart-fill text-danger"></i> из России</p>
 		</form>
 	</main>
 

@@ -56,9 +56,9 @@ foreach ($topics as $row)
 		<div class="container">
 			<div class="d-flex flex-wrap align-items-center justify-content-center">
 				<ul class="nav col-12 my-1 justify-content-around my-md-0 text-small">
-					<li class="text-center"><a href="forum.php" class="nav-link"><i class="bi bi-house-fill mx-auto mb-1" style="font-size: 2rem;"></i><br>ГЛАВНАЯ</a></li>
-					<li class="text-center"><a href="create_topic.php" class="nav-link"><i class="bi bi-bookmark-plus mx-auto mb-1" style="font-size: 2rem;"></i><br>НОВЫЙ ТОПИК</a></li>
-					<li class="text-center"><a href="#" class="nav-link"><i class="bi bi-gear mx-auto mb-1" style="font-size: 2rem;"></i><br>НАСТРОЙКИ</a></li>
+					<li class="text-center"><a href="forum.php" class="nav-link"><i class="bi bi-house-fill mx-auto mb-1" style="font-size: 1.3rem;"></i><br>ГЛАВНАЯ</a></li>
+					<li class="text-center"><a href="create_topic.php" class="nav-link"><i class="bi bi-bookmark-plus mx-auto mb-1" style="font-size: 1.3rem;"></i><br>НОВЫЙ ТОПИК</a></li>
+					<li class="text-center"><a href="#" class="nav-link"><i class="bi bi-gear mx-auto mb-1" style="font-size: 1.3rem;"></i><br>НАСТРОЙКИ</a></li>
 				</ul>
 			</div>
 		</div>
