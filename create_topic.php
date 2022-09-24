@@ -15,7 +15,7 @@
 
 	#
 	#
-	$cover_size_limit = 8; # MB
+	define('COVER_FILESIZE_MB', 8); # MB
 
 	#
 	# Закрываем страницу для не авторизованных пользователей
@@ -31,9 +31,9 @@
 			$upload_dir_cover = 'covers/';
 			$cover = $upload_dir_cover . basename($_FILES['COVER']['name']);
 
-			if ($_FILES['COVER']['size'] > 5000)
+			if ($_FILES['COVER']['size'] > COVER_FILESIZE_MB*1000*1000)
 			{
-				die("Максимальный размер обложки " . $cover_size_limit . "MB");
+				die("Максимальный размер обложки " . COVER_FILESIZE_MB . "MB");
 			}
 
 			if (!move_uploaded_file($_FILES['COVER']['tmp_name'], $cover))

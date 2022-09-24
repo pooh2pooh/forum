@@ -34,7 +34,7 @@
 			<img src="<?php strlen($row['cover']) > 0 ? print $row['cover'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$row['name'] . ' cover'; ?>" class="flex-shrink-0" width="128" height="128">
 				<div class="d-flex gap-2 w-100 justify-content-between">
 					<div>
-						<h6 class="mb-0"><?=$row['name']?></h6>
+						<h6 class="mb-0 fw-bold"><?=$row['name']?></h6>
 						<p class="mb-0 opacity-75"><?=mb_substr($stdout->FirstPost($row['id']), 0, 120)?></p>
 						<small class="d-md-none opacity-50 text-nowrap"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?></small>
 					</div>
