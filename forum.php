@@ -35,9 +35,11 @@
 					<div>
 						<h6 class="mb-0 fw-bold"><?=$row['name']?></h6>
 						<p class="mb-0"><?=mb_substr($stdout->FirstPost($row['id']), 0, 120)?></p>
-						<small class="d-md-none text-muted text-nowrap"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?></small>
+						<small class="d-md-none text-muted text-nowrap"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?>
+						</small>
 					</div>
 					<small class="d-none d-md-block text-muted text-nowrap"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?></small>
+					<!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">100</span> -->
 				</div>
 			</a>
 		</div>

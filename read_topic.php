@@ -195,6 +195,7 @@
 	<script src="js/editorjs.list.js"></script>
 	<script src="js/editorjs.simple-image.js"></script>
 	<script src="js/editor_settings.js"></script>
+	<script src="js/copyToClipboard.js"></script>
 	<script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
 
 

@@ -12,6 +12,12 @@
 
 $soundcloud_url_pattern	= "/https:\/\/soundcloud.com\/\S*/"; # Soundcloud виджет по ссылке
 
+function isMyPost($author) {
+	##
+	# Выделяем посты автора для него самого
+	#
+	return strcmp($author, $_SESSION['AUTH']);
+}
 
 #
 # Рендер постов
@@ -19,6 +25,8 @@ foreach ($posts as $row)
 {
 
 	$curr_author = $row['author']; # Автор текущего (в цикле) поста
+	$url = ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; # Текущий URL
+	$url = explode('#', $url);
 
 
 	#
@@ -30,19 +38,38 @@ foreach ($posts as $row)
 		$prev_author = $curr_author; # Запоминаем автора поста, нужен для вывода следующего поста (функция ДОПОЛНЕНО)
 ?>
 
-
 		<div class="d-none d-md-block col-md-2">
-			<img src="https://via.placeholder.com/120" class="img-fluid sticky-top" style="top: 10px;">
+			<?php if(isMyPost($row['author'])) { ?>
+				<img src="https://via.placeholder.com/120" class="img-fluid sticky-top" style="top: 10px;">
+			<?php } ?>
 		</div>
 		<div class="col-12 col-md-10 mb-1">
-			<h6>
-				<strong><?=$row['author']?></strong>
-				<small class="text-muted float-end" style="font-size: 0.6em"><?=date("d M Y H:i", strtotime($row['date']))?> 
-					<a href="#<?=$row['id']?>" id="<?=$row['id']?>" title="Ссылка на пост">#<?=$row['id']?></a>
-				</small>
-			</h6>
+			<?php if(isMyPost($row['author'])) { ?>
+				<h6>
+					<strong class="h2 fw-bold"><?=$row['author']?></strong>
+					
+				</h6>
+			<?php } ?>
 
-			<div class="p-4 bg-white rounded-end shadow text-break">
+			<div class="text-center mb-5">
+				<button type="button" class="btn border text-dark" style="font-size: 0.8em;text-decoration: none;" id="copyToClipboardButton" title="Ссылка на тему">тема создана <strong><?=date("d M Y в H:i", strtotime($row['date']))?></strong></button>
+			</div>
+
+			<div class="toast-container position-fixed top-0 end-0 p-3">
+			  <div id="copyToClipboard" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+			    <div class="toast-header">
+			      <!-- <img src="..." class="rounded me-2" alt="..."> -->
+			      <strong class="me-auto">Харибда</strong>
+			      <small>Сейчас</small>
+			      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+			    </div>
+			    <div class="toast-body">
+			      Ссылка на тему скопирована в буфер обмена
+			    </div>
+			  </div>
+			</div>
+
+			<div class="p-4 <?=isMyPost($row['author']) ? 'bg-white' : 'bg-light'?> rounded-5 shadow text-break">
 				<?=preg_replace_callback($soundcloud_url_pattern, function ($matches) { return "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=$matches[0]&show_artwork=true'></iframe>"; }, $row['post'])?>
 
 
@@ -62,17 +89,22 @@ foreach ($posts as $row)
 		<div class="pt-5"></div>
 
 		<div class="d-none d-md-block col-md-2">
-			<img src="https://via.placeholder.com/120" class="img-fluid sticky-top" style="top: 10px;">
+			<?php if(isMyPost($row['author'])) { ?>
+				<img src="https://via.placeholder.com/120" class="img-fluid sticky-top" style="top: 10px;">
+			<?php } ?>
 		</div>
 		<div class="col-12 col-md-10 mb-1">
-			<h6>
-				<strong><?=$row['author']?></strong> 
-				<small class="text-muted float-end" style="font-size: 0.6em"><?=date("d M Y H:i", strtotime($row['date']))?> 
-					<a href="#<?=$row['id']?>" id="<?=$row['id']?>">#<?=$row['id']?></a>
-				</small>
-			</h6>
+			<?php if(isMyPost($row['author'])) { ?>
+				<h6>
+					<strong class="h2 fw-bold"><?=$row['author']?></strong>
+					
+				</h6>
+			<?php } ?>
 
-			<div class="p-4 bg-white rounded-end shadow text-break">
+			<div class="p-4 <?=isMyPost($row['author']) ? 'bg-white' : 'bg-light'?> rounded-5 shadow text-break">
+				<small class="text-muted float-end" style="font-size: 0.8em"><?=date("d M Y H:i", strtotime($row['date']))?> 
+					<a href="#<?=$row['id']?>" id="<?=$row['id']?>">#<?=$row['id']?></a>
+				</small><br><br>
 				<?=preg_replace_callback($soundcloud_url_pattern, function ($matches) { return "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=$matches[0]&show_artwork=true'></iframe>"; }, $row['post'])?>
 
 
