@@ -5,10 +5,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Login</title>
-	<link rel="stylesheet" href="bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-	<link href="signin.css" rel="stylesheet">
+	<title>Секретный форум</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link href="css/signin.css" rel="stylesheet">
 </head>
 
 <body class="text-center">
@@ -17,13 +16,13 @@
 
 <?php
 
-require "stdout.class.php";
+require "lib/stdout.class.php";
 $stdout = new stdout();
 
 !isset($_SESSION['AUTH']) ?: header('Location: /forum.php');
 if (isset($_POST['USERNAME']) && isset($_POST['PASSWORD'])) {
 
-				($stdout->Auth($_POST['USERNAME'], $_POST['PASSWORD']) ? header('Location: /forum.php') : die("<div class='text-center py-5'><img class='img-fluid' src='system-page-cover.png'></div><!-- Что ты здесь хотел увидеть ? -->")) ?: $_SESSION['AUTH'] = $_POST['USERNAME'];
+	($stdout->Auth($_POST['USERNAME'], $_POST['PASSWORD']) ? header('Location: /forum.php') : die("<div class='text-center py-5'><img class='img-fluid' src='system-page-cover.png'></div><!-- Что ты здесь хотел увидеть ? -->")) ?: $_SESSION['AUTH'] = $_POST['USERNAME'];
 
 }
 
@@ -42,11 +41,17 @@ if (isset($_POST['USERNAME']) && isset($_POST['PASSWORD'])) {
 			</div>
 
 			<button class="w-100 btn btn-lg btn-primary bg-gradient mt-3" type="submit">Вход</button>
-			<p class="mt-5 mb-3 text-muted">С <i class="bi bi-heart-fill text-danger"></i> из России</p>
+			<p class="mt-5 mb-3 text-muted">
+				С
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+					<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+				</svg>
+				из России
+			</p>
 		</form>
 	</main>
 
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php session_start(); $startTime = new DateTime('now'); ?>
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -6,9 +6,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Форум</title>
-  	<link rel="stylesheet" href="bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-	<link rel="stylesheet" href="navbar.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/navbar.css">
 
 </head>
 
@@ -20,7 +19,7 @@
 
 	#
 	# Закрываем страницу для не авторизованных пользователей
-	require "auth.class.php";
+	require "lib/auth.class.php";
 
 	$topics = $stdout->ListTopics();
 
@@ -35,10 +34,10 @@
 				<div class="d-flex gap-2 w-100 justify-content-between">
 					<div>
 						<h6 class="mb-0 fw-bold"><?=$row['name']?></h6>
-						<p class="mb-0 opacity-75"><?=mb_substr($stdout->FirstPost($row['id']), 0, 120)?></p>
-						<small class="d-md-none opacity-50 text-nowrap"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?></small>
+						<p class="mb-0"><?=mb_substr($stdout->FirstPost($row['id']), 0, 120)?></p>
+						<small class="d-md-none text-muted text-nowrap"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?></small>
 					</div>
-					<small class="d-none d-md-block opacity-50 text-nowrap"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?></small>
+					<small class="d-none d-md-block text-muted text-nowrap"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?></small>
 				</div>
 			</a>
 		</div>
@@ -55,15 +54,37 @@
 		<div class="container-fluid">
 			<div class="d-flex flex-wrap align-items-center justify-content-center">
 				<ul class="nav col-12 my-1 justify-content-around my-md-0 text-small">
-					<li class="text-center small"><a href="forum.php" class="nav-link"><i class="bi bi-house-fill mx-auto mb-1" style="font-size: 1.3rem;"></i><br>ГЛАВНАЯ</a></li>
-					<li class="text-center small"><a href="create_topic.php" class="nav-link"><i class="bi bi-bookmark-plus mx-auto mb-1" style="font-size: 1.3rem;"></i><br>НОВЫЙ ТОПИК</a></li>
-					<li class="text-center small"><a href="#" class="nav-link"><i class="bi bi-gear mx-auto mb-1" style="font-size: 1.3rem;"></i><br>НАСТРОЙКИ</a></li>
+					<li class="text-center small"><a href="forum.php" class="nav-link">
+						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+						  <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+						  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+						</svg>
+						<br>
+						ГЛАВНАЯ
+					</a></li>
+					<li class="text-center small"><a href="create_topic.php" class="nav-link">
+						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
+						  <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+						  <path d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z"/>
+						</svg>
+						<br>СОЗДАТЬ
+					</a></li>
+					<li class="text-center small"><a href="#" class="nav-link">
+						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+						  <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+						  <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+						</svg>
+						<br>
+						НАСТРОЙКИ
+					</a></li>
 				</ul>
 			</div>
 		</div>
 	</footer>
 
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
+
+<?php require "lib/print_runtime.php"; ?>

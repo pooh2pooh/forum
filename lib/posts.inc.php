@@ -42,7 +42,7 @@ foreach ($posts as $row)
 				</small>
 			</h6>
 
-			<div class="p-4 bg-white rounded-end shadow">
+			<div class="p-4 bg-white rounded-end shadow text-break">
 				<?=preg_replace_callback($soundcloud_url_pattern, function ($matches) { return "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=$matches[0]&show_artwork=true'></iframe>"; }, $row['post'])?>
 
 
@@ -72,7 +72,7 @@ foreach ($posts as $row)
 				</small>
 			</h6>
 
-			<div class="p-4 bg-white rounded-end shadow">
+			<div class="p-4 bg-white rounded-end shadow text-break">
 				<?=preg_replace_callback($soundcloud_url_pattern, function ($matches) { return "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=$matches[0]&show_artwork=true'></iframe>"; }, $row['post'])?>
 
 

@@ -4,11 +4,14 @@ function editorParser($src) {
 
 	$data = '';
 
-	foreach($src as $key => $value) {
+	foreach($src as $key => $value) 
+	{
 
-		if(isset($src[$key]['data']['level'])) {
+		if(!empty($src[$key]['data']['level'])) 
+		{
 
-			switch($src[$key]['data']['level']) {
+			switch($src[$key]['data']['level']) 
+			{
 				case 1:
 					$data .= '<h1>' . $src[$key]['data']['text'] . '</h1>';
 					break;
@@ -29,7 +32,31 @@ function editorParser($src) {
 					break;
 			}
 
-		} else {
+		} 
+		else if(!empty($src[$key]['data']['style']))
+		{
+
+			switch($src[$key]['data']['style'])
+			{
+				case 'ordered':
+					$data .= '<ol>';
+					foreach ($src[$key]['data']['items'] as $value) {
+						$data .= '<li>' . $value . '</li>';
+					}
+					$data .= '</ol>';
+					break;
+				case 'unordered':
+					$data .= '<ul>';
+					foreach ($src[$key]['data']['items'] as $value) {
+						$data .= '<li>' . $value . '</li>';
+					}
+					$data .= '</ul>';
+					break;
+			}
+
+		} 
+		else 
+		{
 			$data .= $src[$key]['data']['text'] . '<br>';
 		}
 

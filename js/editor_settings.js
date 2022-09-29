@@ -7,12 +7,18 @@ const editor = new EditorJS({
 		image: SimpleImage,
 
 	},
-	autofocus: true,
+	// autofocus: true,
 });
+
+$('#modalEditor').on('shown.bs.modal', function () {
+  // get the locator for an input in your modal. Here I'm focusing on
+  // the element with the id of <editor>
+  editor.focus()
+})
 
 function SendPost(topic_id) {
 	editor.save().then((outputData) => {
-		// console.log('Article data: ', outputData)
+		console.log('Article data: ', outputData)
 		$.ajax({
 			url: 'read_topic.php?topic_id=' + topic_id,
 			type: 'POST',
