@@ -13,7 +13,7 @@
 
 <body>
 
-	<main class="w-100 bg-light m-auto pb-5" style="min-height: 1600px;">
+	<main class="w-100 bg-light m-auto pb-5" style="min-height: 1440px;">
 
 <?php
 
@@ -91,7 +91,7 @@
 	</footer>
 
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/bootstrap.bundle.min.js" defer></script>
 </body>
 
 </html>

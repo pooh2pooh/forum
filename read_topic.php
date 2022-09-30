@@ -197,15 +197,15 @@
 	</div>
 
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<script src="js/bootstrap.bundle.min.js"></script>
-	<script src="js/jquery-3.6.1.min.js"></script>
-	<script src="js/editor.js"></script>
-	<script src="js/editorjs.header.js"></script>
-	<script src="js/editorjs.list.js"></script>
-	<script src="js/editorjs.simple-image.js"></script>
-	<script src="js/editor_settings.js"></script>
-	<script src="js/copyToClipboard.js"></script>
-	<script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
+	<script src="js/bootstrap.bundle.min.js" defer></script>
+	<script src="js/jquery-3.6.1.min.js" async></script>
+	<script src="js/editor.js" defer></script>
+	<script src="js/editorjs.header.js" defer></script>
+	<script src="js/editorjs.list.js" defer></script>
+	<script src="js/editorjs.simple-image.js" defer></script>
+	<script src="js/editor_settings.js" defer></script>
+	<script src="js/copyToClipboard.js" defer></script>
+	<script src="https://w.soundcloud.com/player/api.js" type="text/javascript" async></script>
 
 
 </body>

@@ -52,7 +52,7 @@ if (isset($_POST['USERNAME']) && isset($_POST['PASSWORD'])) {
 		</form>
 	</main>
 
-	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/bootstrap.bundle.min.js" defer></script>
 </body>
 
 </html>
