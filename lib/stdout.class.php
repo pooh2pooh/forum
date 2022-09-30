@@ -8,7 +8,7 @@ class stdout {
 	function __construct()
 	{
 
-		require 'Database.lib.php';
+		require 'lib/Database.lib.php';
 
 	}
 

@@ -34,18 +34,18 @@
 
 		#
 		# Класс для конвертации изображений в WEBP
-		require 'webpConvert2.class.php';
+		require 'lib/webpConvert2.class.php';
 
 		#
 		# Класс для создания миниатюры изображения
-		require 'thumbs.class.php';
+		require 'lib/thumbs.class.php';
 		
 		$thumb = new Thumbs($cover);
 		$thumb->cut(150, 150);
 
 		if (webpConvert2($cover))
 		{
-			
+
 			$thumb->saveWEBP($cover_thumb . '.webp', 80);
 			$filename = $filename . '.webp';
 
