@@ -1,11 +1,11 @@
 <ifModule mod_headers.c>
-  #10_min
-  <FilesMatch "\.(html|htm|php|xml|txt)$">
-    Header set Cache-Control "max-age=600, must-revalidate"
-  </FilesMatch>
   #1_week
+  <FilesMatch "\.(html|htm|php|xml|txt)$">
+    Header set Cache-Control "max-age=604800, must-revalidate"
+  </FilesMatch>
+  #1_month
   <FilesMatch "\.(ads|jcn|js|css)$">
-    Header set Cache-Control "max-age=604800, public"
+    Header set Cache-Control "max-age=2592000, public"
   </FilesMatch>
   #1_month
   <FilesMatch "\.(flv|swf|ico|gif|jpg|jpeg|png|pdf|webp)$">
