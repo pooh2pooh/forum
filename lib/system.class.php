@@ -45,12 +45,13 @@
 
 		if (webpConvert2($cover))
 		{
+			
 			$thumb->saveWEBP($cover_thumb . '.webp', 80);
+			$filename = $filename . '.webp';
 
 			unlink($cover_thumb);
 			unlink($cover);
-			
-			$cover = $cover . '.webp';
+
 		}
 		else
 			$thumb->save($cover_thumb);
