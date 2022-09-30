@@ -12,10 +12,6 @@
 <?php
 
 	#
-	#
-	define('COVER_FILESIZE_MB', 8); # MB
-
-	#
 	# Закрываем страницу для не авторизованных пользователей
 	require 'lib/auth.class.php';
 
@@ -23,44 +19,11 @@
 	# Системный класс
 	require 'lib/system.class.php';
 
-	if (isset($_POST['NAME']) && isset($_POST['POST'])) {
+	if (!empty($_FILES['COVER']['name']))
+	{
 
-		$cover = '';
+		$stdin->CreateTopic($_POST['NAME'], $_POST['POST'], $_SESSION['AUTH'], uploadCover($_FILES['COVER'])) ? header('Location: /forum.php') : die('Ошибка! Не получилось создать новую тему :(');
 
-		if (isset($_FILES['COVER']['name']) && !empty($_FILES['COVER']['name']))
-		{
-
-			$filename = basename($_FILES['COVER']['name']);
-			$cover = 'covers/' . $filename;
-			$cover_thumb = 'covers/thumbs/' . $filename;
-
-			if ($_FILES['COVER']['size'] > COVER_FILESIZE_MB*1000*1000)
-				die('Максимальный размер обложки ' . COVER_FILESIZE_MB . 'MB');
-			else if (!move_uploaded_file($_FILES['COVER']['tmp_name'], $cover))
-				die('Ошибка! Не получилось загрузить обложку, не является допустимым файлом или не может быть перемещен по какой-либо причине.');
-
-			#
-			# Класс для конвертации изображений в WEBP
-			require 'lib/webpConvert2.class.php';
-
-			#
-			# Класс для создания миниатюры изображения
-			require 'lib/thumbs.class.php';
-			
-			$thumb = new Thumbs($cover);
-			$thumb->cut(150, 150);
-
-			if (webpConvert2($cover))
-			{
-				$thumb->saveWEBP($cover_thumb . '.webp', 80);
-				$cover = $cover . '.webp';
-			}
-			else
-				$thumb->save($cover_thumb);
-
-		}
-
-		$stdin->CreateTopic($_POST['NAME'], $_POST['POST'], $_SESSION['AUTH'], $filename) ? header('Location: /forum.php') : die('Ошибка! Не получилось создать новую тему :(');
 	}
 ?>
 

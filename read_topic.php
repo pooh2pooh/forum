@@ -44,20 +44,9 @@
 	#
 	# Сохраняем изменённые данные топика
 	if(!empty($_POST['topic_name']) && !empty($_POST['topic_first_post']))
-	{
 		$stdin->UpdateTopic($_GET['topic_id'], $_POST['topic_name'], $_POST['topic_first_post']);
-	}
-	if(!empty($_FILES['topic_cover']))
-	{
-		$upload_dir_cover = 'covers/';
-		$cover = $upload_dir_cover . basename($_FILES['topic_cover']['name']);
-
-		if (!move_uploaded_file($_FILES['topic_cover']['tmp_name'], $cover)) {
-			die('Error! Cover not upload.');
-		}
-
-		$stdin->UpdateTopicCover($_GET['topic_id'], $cover);
-	}
+	if(!empty($_FILES['topic_cover']['name']))
+		$stdin->UpdateTopicCover($_GET['topic_id'], uploadCover($_FILES['topic_cover']));
 
 ?>
 
@@ -167,7 +156,7 @@
 						</div>
 						<div class="mb-5">
 							<label for="topicCoverInput" class="form-label">Обложка</label><br>
-							<img class="img-fluid" src="<?php !empty($topic['cover']) ? print $topic['cover'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$topic['name'] . ' cover'; ?>">
+							<img class="img-fluid" src="<?php !empty($topic['cover']) ? print 'covers/thumbs/' . $topic['cover'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$topic['name'] . ' cover'; ?>">
 							<input type="file" class="form-control" id="topicCoverInput" name="COVER" accept=".jpg,.jpeg,.png">
 						</div>
 						<div class="mb-3">
