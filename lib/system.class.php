@@ -3,8 +3,8 @@
 	#
 	# Если пользователь авторизован,
 	# подключаем библиотеки для работы с базой данных
-	require "lib/stdin.class.php";
-	require "lib/stdout.class.php";
+	require 'lib/stdin.class.php';
+	require 'lib/stdout.class.php';
 
 
 	#

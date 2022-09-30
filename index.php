@@ -16,7 +16,7 @@
 
 <?php
 
-require "lib/stdout.class.php";
+require 'lib/stdout.class.php';
 $stdout = new stdout();
 
 !isset($_SESSION['AUTH']) ?: header('Location: /forum.php');

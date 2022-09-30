@@ -19,10 +19,10 @@
 
 	#
 	# Закрываем страницу для не авторизованных пользователей
-	require "lib/auth.class.php";
+	require 'lib/auth.class.php';
 	#
 	# Системный класс
-	require "lib/system.class.php";
+	require 'lib/system.class.php';
 
 	$topics = $stdout->ListTopics();
 
@@ -43,7 +43,7 @@
 					</div>
 					<small class="d-none d-md-block text-muted text-nowrap"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?></small>
 					<span class="d-none d-md-block position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">+999</span>
-					<span class="d-block d-md-none position-absolute top-0 translate-middle badge rounded-pill bg-danger" style="left: 96%">+999</span>
+					<span class="d-block d-md-none position-absolute top-0 translate-middle badge rounded-pill bg-danger" style="left: 95%">+999</span>
 				</div>
 			</a>
 		</div>
@@ -92,4 +92,4 @@
 
 </html>
 
-<?php require "lib/print_runtime.php"; ?>
+<?php require 'lib/print_runtime.php'; ?>

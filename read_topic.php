@@ -6,7 +6,7 @@
 
 	#
 	# Системный класс
-	require "lib/system.class.php";
+	require 'lib/system.class.php';
 
 	#
 	# Получаем информацию о текущем топике
@@ -26,7 +26,7 @@
 
 	#
 	# Закрываем страницу для не авторизованных пользователей
-	require "lib/auth.class.php";
+	require 'lib/auth.class.php';
 
 	#
 	# Получаем посты в топике
@@ -84,7 +84,7 @@
 		<div class="container">
 			<div class="row">
 
-				<?php require "lib/posts.inc.php"; ?>
+				<?php require 'lib/posts.inc.php'; ?>
 
 				<div class="toast-container position-fixed top-0 end-0 p-3">
 				  <div id="copyToClipboard" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -221,4 +221,4 @@
 </body>
 </html>
 
-<?php require "lib/print_runtime.php"; ?>
+<?php require 'lib/print_runtime.php'; ?>

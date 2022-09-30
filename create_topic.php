@@ -18,11 +18,11 @@
 
 	#
 	# Закрываем страницу для не авторизованных пользователей
-	require "lib/auth.class.php";
+	require 'lib/auth.class.php';
 
 	#
 	# Системный класс
-	require "lib/system.class.php";
+	require 'lib/system.class.php';
 
 	if (isset($_POST['NAME']) && isset($_POST['POST'])) {
 
@@ -35,12 +35,17 @@
 			$cover = $upload_dir_cover . basename($_FILES['COVER']['name']);
 
 			if ($_FILES['COVER']['size'] > COVER_FILESIZE_MB*1000*1000)
-			{
-				die("Максимальный размер обложки " . COVER_FILESIZE_MB . "MB");
-			}
+				die('Максимальный размер обложки ' . COVER_FILESIZE_MB . 'MB');
+			else if (!move_uploaded_file($_FILES['COVER']['tmp_name'], $cover))
+				die('Ошибка! Не получилось загрузить обложку, не является допустимым файлом или не может быть перемещен по какой-либо причине.');
 
-			if (!move_uploaded_file($_FILES['COVER']['tmp_name'], $cover))
-				die("Ошибка! Не получилось загрузить обложку, не является допустимым файлом или не может быть перемещен по какой-либо причине.");
+			#
+			# Класс для конвертации изображений в WEBP
+			require 'lib/webpConvert2.class.php';
+			
+			if (webpConvert2($cover))
+				$cover = $cover . '.webp';
+
 		}
 
 		$stdin->CreateTopic($_POST['NAME'], $_POST['POST'], $_SESSION['AUTH'], $cover) ? header('Location: /forum.php') : die('Error! Not Create New Topic :(');

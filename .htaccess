@@ -8,7 +8,7 @@
     Header set Cache-Control "max-age=604800, public"
   </FilesMatch>
   #1_month
-  <FilesMatch "\.(flv|swf|ico|gif|jpg|jpeg|png|pdf)$">
+  <FilesMatch "\.(flv|swf|ico|gif|jpg|jpeg|png|pdf|webp)$">
     Header set Cache-Control "max-age=2592000, public"
   </FilesMatch>
 </IfModule>

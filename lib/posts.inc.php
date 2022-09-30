@@ -10,7 +10,7 @@
 #
 
 
-$soundcloud_url_pattern	= "/https:\/\/soundcloud.com\/\S*/"; # Soundcloud виджет по ссылке
+$soundcloud_url_pattern	= '/https:\/\/soundcloud.com\/\S*/'; # Soundcloud виджет по ссылке
 
 function isMyPost($author) {
 	##
