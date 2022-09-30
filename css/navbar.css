@@ -5,7 +5,10 @@
   color: #dfdfdf;
 }
 
-.bg-navbar a {
+.bg-navbar a.nav-link {
   color: #dfdfdf;
+  width: 100px !important;
 }
-
+.bg-navbar a.nav-link:hover {
+  color: #966FD6;
+}

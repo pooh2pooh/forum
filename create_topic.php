@@ -29,27 +29,24 @@
 ?>
 
 <body>
-	<main class="w-100 m-auto pb-5">
+	<main class="w-100" style="min-height: 1100px;">
 
-
-		<div class="m-1 m-md-5">
-			<h1 class="text-center">Новая тема</h1>
+		<div class="container">
 			<form action="create_topic.php" method="post" enctype="multipart/form-data">
-				<div class="mb-3">
-					<label for="topicNameInput" class="form-label">Название</label>
-					<input type="text" class="form-control" id="topicNameInput" name="NAME" placeholder="Топик про музыку" autofocus>
-				</div>
-				<div class="mb-5">
-					<label for="topicCoverInput" class="form-label">Обложка</label>
-					<input type="file" class="form-control" id="topicCoverInput" name="COVER" accept=".jpg,.jpeg,.png">
-				</div>
-				<div class="mb-3">
-					<label for="topicFirstPostInput" class="form-label">Тема</label>
-					<textarea class="form-control" id="topicFirstPostInput" name="POST" placeholder="Мой любимый плейлист" rows="6"></textarea>
-				</div>
+				<div class="row my-5">
+					<div class="col-md-8 mx-auto">
+						<label class="h4 mb-3 fw-bold" for="topicNameInput">Название темы:</label>
+						<input class="form-control form-control-lg border-0 mb-4" id="topicNameInput" name="NAME" placeholder="Должно точно отражать суть" autofocus>
 
-				<div class="btn-group w-100" role="group" aria-label="Basic example">
-					<button type="submit" class="btn btn-success bg-success bg-gradient btn-lg fw-bold">Создать</button>
+						<label class="h4 mb-3 fw-bold" for="topicFirstPostInput">Краткое описание:</label>
+						<textarea class="form-control form-control-lg border-0 mb-4" id="topicFirstPostInput" name="POST" placeholder="Можно использовать стандартные html теги для оформления" rows=12></textarea>
+						
+						<label class="h5 mb-3" for="topicCoverInput">Обложка (необязательно)</label>
+						<input type="file" class="form-control border-0 mb-5" id="topicCoverInput" name="COVER" accept=".jpg,.jpeg,.png,.webp">
+
+						<button type="submit" class="btn btn-success bg-success bg-gradient btn-lg fw-bold w-100">Создать</button>
+						
+					</div>
 				</div>
 			</form>
 		</div>
@@ -59,8 +56,8 @@
 
 	<footer class="fixed-bottom bg-navbar">
 		<div class="container-fluid">
-			<div class="d-flex flex-wrap align-items-center justify-content-center">
-				<ul class="nav col-12 my-1 justify-content-around my-md-0 text-small">
+			<div class="d-flex">
+				<ul class="nav col-12 my-1 my-md-0 text-small justify-content-evenly">
 					<li class="text-center small"><a href="forum.php" class="nav-link">
 						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-chat-square-text" viewBox="0 0 16 16">
 							  <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>

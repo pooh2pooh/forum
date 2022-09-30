@@ -97,8 +97,8 @@
 
 	<footer class="fixed-bottom bg-navbar">
 		<div class="container-fluid">
-			<div class="d-flex flex-wrap align-items-center justify-content-center">
-				<ul class="nav col-12 my-1 justify-content-around my-md-0 text-small">
+			<div class="d-flex">
+				<ul class="nav col-12 my-1 my-md-0 text-small justify-content-evenly">
 					<li class="text-center small">
 						<a href="forum.php" class="nav-link">
 							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-chat-square-text" viewBox="0 0 16 16">
@@ -150,20 +150,23 @@
 				</div>
 				<div class="modal-body">
 
-					<form class="m-1 m-md-5 mx-auto" id="UPDATE_TOPIC">
-						<div class="mb-3">
-							<label for="topicNameInput" class="form-label">Название</label>
-							<input type="text" class="form-control" id="topicNameInput" name="NAME" placeholder="Топик про музыку" value="<?=$topic['name']?>">
+					<form id="UPDATE_TOPIC">
+						<div class="row">
+							<div class="col-md-8 mx-auto">
+								<label class="h4 mb-3 fw-bold" for="topicNameInput">Название темы:</label>
+								<input type="text" class="form-control form-control-lg border-0 mb-4" id="topicNameInput" name="NAME" placeholder="Должно точно отражать суть" value="<?=$topic['name']?>">
+
+								<label class="h4 mb-3 fw-bold" for="topicFirstPostInput">Краткое описание:</label>
+								<textarea type="text" class="form-control form-control-lg border-0 mb-4" id="topicFirstPostInput" name="FIRSTPOST" placeholder="Можно использовать стандартные html теги для оформления" rows=12><?=$stdout->FirstPost($_GET['topic_id'])?></textarea>
+
+								<label class="h5 mb-3" for="topicCoverInput">Обложка (необязательно)</label><br>
+								<img class="img-fluid" src="<?php !empty($topic['cover']) ? print 'covers/thumbs/' . $topic['cover'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$topic['name'] . ' cover'; ?>">
+								<input type="file" class="form-control border-0 mb-5" id="topicCoverInput" name="COVER" accept=".jpg,.jpeg,.png,.webp">
+
+							</div>
 						</div>
-						<div class="mb-5">
-							<label for="topicCoverInput" class="form-label">Обложка</label><br>
-							<img class="img-fluid" src="<?php !empty($topic['cover']) ? print 'covers/thumbs/' . $topic['cover'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$topic['name'] . ' cover'; ?>">
-							<input type="file" class="form-control" id="topicCoverInput" name="COVER" accept=".jpg,.jpeg,.png">
-						</div>
-						<div class="mb-3">
-							<label for="topicFirstPostInput" class="form-label">Тема</label>
-							<textarea type="text" class="form-control" id="topicFirstPostInput" name="FIRSTPOST" placeholder="Описание или тема топика" rows="15"><?=$stdout->FirstPost($_GET['topic_id'])?></textarea>
-						</div>
+						
+							
 
 
 					</form>
