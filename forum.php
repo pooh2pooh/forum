@@ -5,7 +5,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Форум</title>
+	<title>Харибда</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/navbar.css">
 
@@ -20,6 +20,9 @@
 	#
 	# Закрываем страницу для не авторизованных пользователей
 	require "lib/auth.class.php";
+	#
+	# Системный класс
+	require "lib/system.class.php";
 
 	$topics = $stdout->ListTopics();
 
@@ -30,7 +33,7 @@
 
 		<div class="list-group p-2 mx-sm-5">
 			<a href="read_topic.php?topic_id=<?=$row['id']?>" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-			<img src="<?php strlen($row['cover']) > 0 ? print $row['cover'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$row['name'] . ' cover'; ?>" class="flex-shrink-0" width="128" height="128">
+			<img src="<?php !empty($row['cover']) ? print $row['cover'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$row['name'] . ' cover'; ?>" class="flex-shrink-0" width="128" height="128">
 				<div class="d-flex gap-2 w-100 justify-content-between">
 					<div>
 						<h6 class="mb-0 fw-bold"><?=$row['name']?></h6>
@@ -39,7 +42,8 @@
 						</small>
 					</div>
 					<small class="d-none d-md-block text-muted text-nowrap"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?></small>
-					<!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">100</span> -->
+					<span class="d-none d-md-block position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">+999</span>
+					<span class="d-block d-md-none position-absolute top-0 translate-middle badge rounded-pill bg-danger" style="left: 96%">+999</span>
 				</div>
 			</a>
 		</div>
@@ -57,12 +61,11 @@
 			<div class="d-flex flex-wrap align-items-center justify-content-center">
 				<ul class="nav col-12 my-1 justify-content-around my-md-0 text-small">
 					<li class="text-center small"><a href="forum.php" class="nav-link">
-						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
-						  <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-						  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-chat-square-text-fill" viewBox="0 0 16 16">
+						  <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
 						</svg>
 						<br>
-						ГЛАВНАЯ
+						ТЕМЫ
 					</a></li>
 					<li class="text-center small"><a href="create_topic.php" class="nav-link">
 						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bookmark-plus" viewBox="0 0 16 16">

@@ -20,6 +20,10 @@
 	# Закрываем страницу для не авторизованных пользователей
 	require "lib/auth.class.php";
 
+	#
+	# Системный класс
+	require "lib/system.class.php";
+
 	if (isset($_POST['NAME']) && isset($_POST['POST'])) {
 
 		$cover = '';
@@ -48,18 +52,18 @@
 
 
 		<div class="m-1 m-md-5">
-			<h1 class="text-center">Новый топик</h1>
+			<h1 class="text-center">Новая тема</h1>
 			<form action="create_topic.php" method="post" enctype="multipart/form-data">
 				<div class="mb-3">
 					<label for="topicNameInput" class="form-label">Название</label>
-					<input type="text" class="form-control" id="topicNameInput" name="NAME" placeholder="Топик про музыку">
+					<input type="text" class="form-control" id="topicNameInput" name="NAME" placeholder="Топик про музыку" autofocus>
 				</div>
 				<div class="mb-5">
 					<label for="topicCoverInput" class="form-label">Обложка</label>
 					<input type="file" class="form-control" id="topicCoverInput" name="COVER" accept=".jpg,.jpeg,.png">
 				</div>
 				<div class="mb-3">
-					<label for="topicFirstPostInput" class="form-label">Тема топика</label>
+					<label for="topicFirstPostInput" class="form-label">Тема</label>
 					<textarea class="form-control" id="topicFirstPostInput" name="POST" placeholder="Мой любимый плейлист" rows="6"></textarea>
 				</div>
 

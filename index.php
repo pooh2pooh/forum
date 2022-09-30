@@ -5,7 +5,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Секретный форум</title>
+	<title>Харибда</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link href="css/signin.css" rel="stylesheet">
 </head>
