@@ -47,9 +47,10 @@ function UpdateTopic(topic_id) {
 		type: 'POST',
 		data: formData,
 		processData: false,
-        contentType: false,
+    contentType: false,
 		success: function(data) {
 			console.log('SUCCESS update cover topic');
+			location.reload();
 		},
 		error: function() {
 			console.log('ERROR update cover topic');
@@ -72,5 +73,4 @@ function UpdateTopic(topic_id) {
 		}
 	});
 
-	location.reload();
 }
