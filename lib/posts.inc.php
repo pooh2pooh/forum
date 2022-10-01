@@ -87,7 +87,7 @@ foreach ($posts as $row)
 				</h6>
 			<?php } ?>
 
-			<div class="p-md-4 <?=isMyPost($row['author']) ? 'bg-white' : 'bg-light'?> rounded-5 shadow text-break">
+			<div class="p-3 p-md-4 <?=isMyPost($row['author']) ? 'bg-white' : 'bg-light'?> rounded-5 shadow text-break">
 				<small class="text-muted float-end" style="font-size: 0.8em"><?=date("d M Y H:i", strtotime($row['date']))?> 
 					<a href="#<?=$row['id']?>" id="<?=$row['id']?>">#<?=$row['id']?></a>
 				</small><br><br>
