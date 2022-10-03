@@ -39,7 +39,7 @@ foreach ($posts as $row)
 ?>
 
 		<div class="text-center mb-5">
-			<button type="button" class="btn" id="copyToClipboardButton" title="Ссылка на тему">тема создана <strong><?=date("d M Y в H:i", strtotime($row['date']))?></strong></button>
+			<button type="button" class="btn" id="copyToClipboardButton" title="Копировать сылку на тему в буфер обмена">тема создана <strong><?=date("d M Y в H:i", strtotime($row['date']))?></strong></button>
 		</div>
 
 		<div class="d-none d-md-block col-md-2">
