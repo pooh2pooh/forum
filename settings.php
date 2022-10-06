@@ -26,7 +26,7 @@
 <body>
 	<main class="w-100 bg-light m-auto" style="min-height: 1600px;">
 
-		<!-- ПОСТЫ -->
+		<!-- НАСТРОЙКИ -->
 		<div class="container">
 			<div class="row">
 

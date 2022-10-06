@@ -27,7 +27,7 @@ class stdout {
 	function ListTopics()
 	{
 
-		$stmt = $this->db->query('SELECT * FROM topics ORDER BY id DESC');
+		$stmt = $this->db->query('SELECT * FROM topics ORDER BY category DESC');
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
@@ -52,6 +52,12 @@ class stdout {
 		$stmt->execute(['topic_id' => $topic_id]);
 		$post = $stmt->fetch(PDO::FETCH_LAZY);
 		return preg_replace('/https:\/\/soundcloud.com\/\S*/', '&#127925;', $post['post']);
+	}
+
+	function getCategoryName($category_id)
+	{
+		$stmt = $this->db->query("SELECT name FROM categories WHERE id = $category_id");
+		return $stmt->fetchColumn();
 	}
 
 }

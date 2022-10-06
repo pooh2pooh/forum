@@ -25,9 +25,22 @@
 	require 'lib/system.class.php';
 
 	$topics = $stdout->ListTopics();
+	$curr_category = 0;
 
 	foreach ($topics as $row)
 	{
+
+		#
+		# Печатаем названия категорий в списке тем
+		if ($curr_category != $row['category'])
+		{
+
+			$category_name = $stdout->getCategoryName($row['category']);
+			$curr_category = $row['category'];
+			echo "<h3 class='ps-2 pt-4 ps-sm-4 pt-sm-3 fw-bold text-muted text-uppercase'>$category_name</h3>";
+
+		}
+
 
 ?>
 
