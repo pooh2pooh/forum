@@ -20,10 +20,10 @@
 	# Системный класс
 	require 'lib/system.class.php';
 
-	if (!empty($_FILES['COVER']['name']))
+	if (!empty($_POST['NAME']) && !empty($_POST['POST']) && !empty($_POST['CATEGORY']))
 	{
 
-		$stdin->CreateTopic($_POST['NAME'], $_POST['POST'], $_SESSION['AUTH'], uploadCover($_FILES['COVER'])) ? header('Location: /forum.php') : die('Ошибка! Не получилось создать новую тему :(');
+		$stdin->CreateTopic($_POST['NAME'], $_POST['POST'], $_POST['CATEGORY'], $_SESSION['AUTH'], uploadCover($_FILES['COVER'])) ? header('Location: /forum.php') : die('Ошибка! Не получилось создать новую тему :(');
 
 	}
 ?>
@@ -40,6 +40,18 @@
 
 						<label class="h4 mb-3 fw-bold" for="topicFirstPostInput">Краткое описание:</label>
 						<textarea class="form-control form-control-lg border-0 mb-4" id="topicFirstPostInput" name="POST" placeholder="Можно использовать стандартные html теги для оформления" rows=12></textarea>
+
+						<label class="h5 mb-3" for="topicCategorySelect">Категория</label>
+						<select class="form-select mb-4" aria-label="Select category topic" id="topicCategorySelect" name="CATEGORY">
+							<?php
+								$categories = $stdout->ListCategories();
+								foreach($categories as $category)
+								{
+									echo "<option value=$category[id]>$category[name]</option>";
+								}
+							?>
+						  
+						</select>
 						
 						<label class="h5 mb-3" for="topicCoverInput">Обложка (необязательно)</label>
 						<input type="file" class="form-control border-0 mb-5" id="topicCoverInput" name="COVER" accept=".jpg,.jpeg,.png,.webp">

@@ -23,14 +23,13 @@ $stdout = new stdout();
 !isset($_SESSION['AUTH']) ?: header('Location: /forum.php');
 if (isset($_POST['USERNAME']) && isset($_POST['PASSWORD'])) {
 
-	($stdout->Auth($_POST['USERNAME'], $_POST['PASSWORD']) ? header('Location: /forum.php') : die("<div class='text-center py-5'><img class='img-fluid' src='system-page-cover.png'></div><!-- Что ты здесь хотел увидеть ? -->")) ?: $_SESSION['AUTH'] = $_POST['USERNAME'];
+	($stdout->Auth($_POST['USERNAME'], $_POST['PASSWORD']) ? header('Location: /forum.php') : die("<div class='text-center py-5'><img class='img-fluid' src='system-page-cover.png.webp'></div><!-- Что ты здесь хотел увидеть ? -->")) ?: $_SESSION['AUTH'] = $_POST['USERNAME'];
 
 }
 
 ?>
 
 		<form action="/" method="post">
-			<h1 class="mb-3 fw-bold small text-warning">осталась 1 попытка</h1>
 
 			<div class="form-floating">
 				<input type="text" class="form-control" id="inputLogin" name="USERNAME" placeholder="username">

@@ -23,6 +23,13 @@
 	function uploadCover(array $upload_image)
 	{
 
+		if (empty($upload_image['name']))
+		{
+			#
+			# Обложка темы по-умолчанию (если не загружено)
+			return 'haribda.jpg';
+		}
+
 		$filename = basename($upload_image['name']);
 		$cover = 'covers/' . $filename;
 		$cover_thumb = 'covers/thumbs/' . $filename;

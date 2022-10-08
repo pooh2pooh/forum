@@ -12,11 +12,11 @@ class stdin {
 
 	}
 
-	function CreateTopic($name, $post, $author, $cover)
+	function CreateTopic($name, $post, $category, $author, $cover)
 	{
 
-		$stmt = $this->db->prepare('INSERT INTO topics (name, author, cover) VALUES (:name, :author, :cover)');
-		$stmt->execute(['name' => $name, 'author' => $author, 'cover' => $cover]);
+		$stmt = $this->db->prepare('INSERT INTO topics (name, author, category, cover) VALUES (:name, :author, :category, :cover)');
+		$stmt->execute(['name' => $name, 'author' => $author, 'category' => $category, 'cover' => $cover]);
 		$stmt_new_topic = $this->db->lastInsertId();
 		$stmt_posts = $this->db->prepare('INSERT INTO posts (author, topic_id, post) VALUES (:author, :topic_id, :post)');
 		$stmt_posts->execute(['author' => $author, 'topic_id' => $stmt_new_topic, 'post' => $post]);

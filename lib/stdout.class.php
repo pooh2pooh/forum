@@ -1,6 +1,6 @@
 <?php
 
-// Write Here PHP Code!
+
 class stdout {
 
 	protected PDO $db;
@@ -31,13 +31,15 @@ class stdout {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	function GetTopic($id)
+	function GetTopic(int $topic_id)
 	{
-		$stmt = $this->db->query("SELECT * FROM topics WHERE id = $id");
+
+		$stmt = $this->db->query("SELECT * FROM topics WHERE id = $topic_id");
 		return $stmt->fetch(PDO::FETCH_ASSOC);
+
 	}
 
-	function ListPosts($topic_id)
+	function ListPosts(int $topic_id)
 	{
 
 		$stmt = $this->db->prepare('SELECT * FROM posts WHERE topic_id = :topic_id ORDER BY id');
@@ -45,7 +47,7 @@ class stdout {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	function FirstPost($topic_id)
+	function FirstPost(int $topic_id)
 	{
 
 		$stmt = $this->db->prepare('SELECT * FROM posts WHERE topic_id = :topic_id ORDER BY id');
@@ -54,7 +56,13 @@ class stdout {
 		return preg_replace('/https:\/\/soundcloud.com\/\S*/', '&#127925;', $post['post']);
 	}
 
-	function getCategoryName($category_id)
+	function ListCategories()
+	{
+		$stmt = $this->db->query('SELECT * FROM categories ORDER BY id DESC');
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	function getCategoryName(int $category_id)
 	{
 		$stmt = $this->db->query("SELECT name FROM categories WHERE id = $category_id");
 		return $stmt->fetchColumn();

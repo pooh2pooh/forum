@@ -5,37 +5,13 @@
 <?php
 
 	#
-	# Системный класс
-	require 'lib/system.class.php';
-
-	#
-	# Получаем информацию о текущем топике
-	$topic = $stdout->GetTopic($_GET['topic_id']);
-
-?>
-
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Закрытый форум Харибда, <?=htmlspecialchars($stdout->FirstPost($topic['id']))?>">
-	<title><?=$topic['name']?></title>
-	<link rel="stylesheet" href="css/navbar.css">
-</head>
-
-<?php
-
-	#
 	# Закрываем страницу для не авторизованных пользователей
 	require 'lib/auth.class.php';
-
-	#
-	# Получаем посты в топике
-	$posts = $stdout->ListPosts($_GET['topic_id']);
 
 
 	#
 	# Сохраняем пост переданный из формы редактирования,
-	# распарсиваем форматирование
+	# распарсиваем форматирование в lib/parser.class.php
 	if(!empty($_POST['blocks']))
 	{
 		require "lib/parser.class.php";
@@ -49,7 +25,34 @@
 	if(!empty($_FILES['topic_cover']['name']))
 		$stdin->UpdateTopicCover($_GET['topic_id'], uploadCover($_FILES['topic_cover']));
 
+
+	#
+	# Системный класс
+	require 'lib/system.class.php';
+
+	
+	empty($_GET['topic_id']) ? $topic_id = 0 : $topic_id = intval($_GET['topic_id']);
+	if ($topic_id)
+	{
+		#
+		# Получаем информацию о текущем топике
+		$topic = $stdout->GetTopic($topic_id);
+		#
+		# Получаем посты в топике
+		$posts = $stdout->ListPosts($topic_id);
+		if (empty($topic) || empty($posts)) die('<link rel="stylesheet" href="css/bootstrap.min.css"><div class="text-center py-5"><a href="/"><img class="img-fluid" src="system-page-cover.png.webp"></a><h1 class="pt-3">Нет такой темы</h1>Попробуй <a href="/">вернуться на форум</a></div><!-- Что ты здесь хотел увидеть ? -->');
+	} else die('<link rel="stylesheet" href="css/bootstrap.min.css"><div class="text-center py-5"><a href="/"><img class="img-fluid" src="system-page-cover.png.webp"></a><h1 class="pt-3">Нет такой темы</h1>Попробуй <a href="/">вернуться на форум</a></div><!-- Что ты здесь хотел увидеть ? -->');
+
 ?>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Закрытый форум Харибда, <?=htmlspecialchars($stdout->FirstPost($topic['id']))?>">
+	<title><?=$topic['name']?></title>
+	<link rel="stylesheet" href="css/navbar.css">
+</head>
+
 
 <!-- ВЁРСТКА ТОПИКА -->
 <body>
@@ -143,7 +146,7 @@
 					<h5 class="modal-title" id="ModalEditor">Редактирование темы:</h5>
 
 					<div class="d-grid gap-5 d-md-flex justify-content-md-end">
-						<button class="d-none d-md-block btn btn-lg btn-light border float-left" onclick="UpdateTopic(<?=$_GET['topic_id']?>);">Обновить</button>
+						<button class="d-none d-md-block btn btn-lg btn-light border float-left" onclick="UpdateTopic(<?=$topic_id?>);">Обновить</button>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 
@@ -157,7 +160,7 @@
 								<input type="text" class="form-control form-control-lg border-0 mb-4" id="topicNameInput" name="NAME" placeholder="Должно точно отражать суть" value="<?=$topic['name']?>">
 
 								<label class="h4 mb-3 fw-bold" for="topicFirstPostInput">Краткое описание:</label>
-								<textarea type="text" class="form-control form-control-lg border-0 mb-4" id="topicFirstPostInput" name="FIRSTPOST" placeholder="Можно использовать стандартные html теги для оформления" rows=12><?=$stdout->FirstPost($_GET['topic_id'])?></textarea>
+								<textarea type="text" class="form-control form-control-lg border-0 mb-4" id="topicFirstPostInput" name="FIRSTPOST" placeholder="Можно использовать стандартные html теги для оформления" rows=12><?=$stdout->FirstPost($topic_id)?></textarea>
 
 								<label class="h5 mb-3" for="topicCoverInput">Обложка (необязательно)</label><br>
 								<img class="img-fluid" src="<?php !empty($topic['cover']) ? print 'covers/thumbs/' . $topic['cover'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$topic['name'] . ' cover'; ?>">
@@ -173,7 +176,7 @@
 
 				</div>
 				<div class="d-block d-md-none modal-footer">
-					<button class="btn btn-lg bg-light border" onclick="UpdateTopic(<?=$_GET['topic_id']?>)" data-bs-dismiss="modal" data-bs-target="#modalEditor" aria-label="Close">Обновить</button>
+					<button class="btn btn-lg bg-light border" onclick="UpdateTopic(<?=$topic_id?>)" data-bs-dismiss="modal" data-bs-target="#modalEditor" aria-label="Close">Обновить</button>
 				</div>
 			</div>
 		</div>
@@ -187,13 +190,13 @@
 				<div class="modal-header">
 					<h5 class="modal-title" id="ModalEditor">Сообщение:</h5>
 					<div class="d-grid gap-5 d-md-flex justify-content-md-end">
-						<button class="d-none d-md-block btn btn-light btn-lg border px-5 bg-gradient" onclick="SendPost(<?=$_GET['topic_id']?>)" data-bs-dismiss="modal" data-bs-target="#modalEditor" aria-label="Close">Отправить</button>
+						<button class="d-none d-md-block btn btn-light btn-lg border px-5 bg-gradient" onclick="SendPost(<?=$topic_id?>)" data-bs-dismiss="modal" data-bs-target="#modalEditor" aria-label="Close">Отправить</button>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 				</div>
 				<div class="modal-body" id="editorjs"></div>
 				<div class="d-block d-md-none modal-footer">
-					<button class="btn btn-light btn-lg border px-5" onclick="SendPost(<?=$_GET['topic_id']?>)" data-bs-dismiss="modal" data-bs-target="#modalEditor" aria-label="Close">Отправить</button>
+					<button class="btn btn-light btn-lg border px-5" onclick="SendPost(<?=$topic_id?>)" data-bs-dismiss="modal" data-bs-target="#modalEditor" aria-label="Close">Отправить</button>
 				</div>
 			</div>
 		</div>
