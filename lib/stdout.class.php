@@ -19,10 +19,26 @@ class stdout {
 		$stmt->execute(['username' => $username]);
 		$profile = $stmt->fetch(PDO::FETCH_LAZY);
 		if ($profile) {
-						return !strcmp($profile['username'], $username) && !strcmp($profile['password'], $password);
+						if (!strcmp($profile['username'], $username) && !strcmp($profile['password'], $password)) {
+							$_SESSION['USER']['username'] = $profile['username'];
+							$_SESSION['USER']['last_login'] = $profile['last_login'];
+							$stmt = $this->db->prepare('UPDATE users SET last_login = :last_login WHERE username = :username');
+							$stmt->execute(['last_login' => $startTime, 'username' => $username]);
+							return true;
+						}
 		} else return false;
 
-	}				
+	}
+
+	function NewMessages(int $topic_id, $timestamp)
+	{
+		$stmt = $this->db->prepare('SELECT date FROM posts WHERE topic_id = :topic_id ORDER BY id DESC');
+		$stmt->execute(['topic_id' => $topic_id]);
+		$post_timestamp = $stmt->fetchColumn();
+		if (strtotime($post_timestamp) > strtotime($timestamp))
+			return true;
+		else return false;
+	}
 
 	function ListTopics()
 	{
@@ -51,6 +67,14 @@ class stdout {
 	{
 
 		$stmt = $this->db->prepare('SELECT * FROM posts WHERE topic_id = :topic_id ORDER BY id');
+		$stmt->execute(['topic_id' => $topic_id]);
+		$post = $stmt->fetch(PDO::FETCH_LAZY);
+		return preg_replace('/https:\/\/soundcloud.com\/\S*/', '&#127925;', $post['post']);
+	}
+	function LastPost(int $topic_id)
+	{
+
+		$stmt = $this->db->prepare('SELECT * FROM posts WHERE topic_id = :topic_id ORDER BY id DESC');
 		$stmt->execute(['topic_id' => $topic_id]);
 		$post = $stmt->fetch(PDO::FETCH_LAZY);
 		return preg_replace('/https:\/\/soundcloud.com\/\S*/', '&#127925;', $post['post']);

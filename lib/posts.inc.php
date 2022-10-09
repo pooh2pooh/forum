@@ -16,7 +16,7 @@ function isMyPost($author) {
 	##
 	# Выделяем посты автора для него самого
 	#
-	return strcmp($author, $_SESSION['AUTH']);
+	return strcmp($author, $_SESSION['USER']['username']);
 }
 
 #

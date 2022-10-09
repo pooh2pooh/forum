@@ -45,20 +45,19 @@
 ?>
 
 		<div class="list-group p-2 mx-sm-5">
-			<a href="read_topic.php?topic_id=<?=$row['id']?>" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+			<a href="read_topic.php?topic_id=<?=$row['id']?><?php if ($stdout->NewMessages($row['id'], $_SESSION['USER']['last_login']) && empty($_SESSION['TOPIC_READ'][$row['id']])) print '&read=true'; ?>" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
 				<img src="<?php !empty($row['cover']) ? print 'covers/thumbs/' . $row['cover'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$row['name'] . ' cover'; ?>" class="flex-shrink-0" width="128" height="128">
 				<div class="d-flex flex-column w-100">
 					<h6 class="d-flex mb-md-3">
 						<span class="fw-bold"><?=$row['name']?></span>
 						<small class="d-none d-md-inline text-muted ms-auto"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?></small>
 					</h6>
-					<p class="d-block d-md-none mb-0"><?=mb_substr($stdout->FirstPost($row['id']), 0, 70)?></p>
-					<p class="d-none d-md-block mb-0"><?=mb_substr($stdout->FirstPost($row['id']), 0, 180)?></p>
+					<p class="d-block d-md-none mb-0"><?=mb_substr($stdout->LastPost($row['id']), 0, 70)?></p>
+					<p class="d-none d-md-block mb-0"><?=mb_substr($stdout->LastPost($row['id']), 0, 180)?></p>
 					<small class="d-md-none text-muted text-nowrap"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?>
 					</small>
 				</div>
-				<span class="d-none d-md-block position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">+999</span>
-				<span class="d-block d-md-none position-absolute top-0 translate-middle badge rounded-pill bg-danger" style="left: 95%">+999</span>
+				<?php require 'lib/print_marker_new_messages.php'; ?>
 				
 			</a>
 		</div>

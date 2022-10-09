@@ -20,11 +20,11 @@
 require 'lib/stdout.class.php';
 $stdout = new stdout();
 
-!isset($_SESSION['AUTH']) ?: header('Location: /forum.php');
+!isset($_SESSION['USER']['username']) ?: header('Location: /forum.php');
 if (isset($_POST['USERNAME']) && isset($_POST['PASSWORD'])) {
 
-	($stdout->Auth($_POST['USERNAME'], $_POST['PASSWORD']) ? header('Location: /forum.php') : die("<div class='text-center py-5'><img class='img-fluid' src='system-page-cover.png.webp'></div><!-- Что ты здесь хотел увидеть ? -->")) ?: $_SESSION['AUTH'] = $_POST['USERNAME'];
-
+	($stdout->Auth($_POST['USERNAME'], $_POST['PASSWORD']) ? header('Location: /forum.php') : die("<div class='text-center py-5'><img class='img-fluid' src='system-page-cover.png.webp'></div><!-- Что ты здесь хотел увидеть ? -->"));
+	
 }
 
 ?>
