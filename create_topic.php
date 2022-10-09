@@ -23,7 +23,7 @@
 	if (!empty($_POST['NAME']) && !empty($_POST['POST']) && !empty($_POST['CATEGORY']))
 	{
 
-		$stdin->CreateTopic($_POST['NAME'], $_POST['POST'], $_POST['CATEGORY'], $_SESSION['USER']['username'], uploadCover($_FILES['COVER'])) ? header('Location: /forum.php') : die('Ошибка! Не получилось создать новую тему :(');
+		$stdin->CreateTopic($_POST['NAME'], $_POST['POST'], $_POST['CATEGORY'], $_SESSION['USER']['user_id'], uploadCover($_FILES['COVER'])) ? header('Location: /forum.php') : die('Ошибка! Не получилось создать новую тему :(');
 
 	}
 ?>

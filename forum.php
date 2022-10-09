@@ -50,11 +50,11 @@
 				<div class="d-flex flex-column w-100">
 					<h6 class="d-flex mb-md-3">
 						<span class="fw-bold"><?=$row['name']?></span>
-						<small class="d-none d-md-inline text-muted ms-auto"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?></small>
+						<small class="d-none d-md-inline text-muted ms-auto"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $stdout->getUserNameByID($row['author'])?></small>
 					</h6>
 					<p class="d-block d-md-none mb-0"><?=mb_strimwidth(strip_tags($stdout->LastPost($row['id']), '<br>'), 0, 60, '…')?></p>
 					<p class="d-none d-md-block mb-0"><?=mb_strimwidth(strip_tags($stdout->LastPost($row['id']), '<br>'), 0, 256, '…')?></p>
-					<small class="d-md-none text-muted text-nowrap"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?>
+					<small class="d-md-none text-muted text-nowrap"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $stdout->getUserNameByID($row['author'])?>
 					</small>
 				</div>
 				<?php require 'lib/print_marker_new_messages.php'; ?>

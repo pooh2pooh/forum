@@ -12,22 +12,46 @@ class stdout {
 
 	}
 
-	function Auth($username, $password)
+	function Auth($login, $password)
 	{
 
-		$stmt = $this->db->prepare('SELECT * FROM users WHERE username = :username');
-		$stmt->execute(['username' => $username]);
+		$stmt = $this->db->prepare('SELECT * FROM users WHERE login = :login');
+		$stmt->execute(['login' => $login]);
 		$profile = $stmt->fetch(PDO::FETCH_LAZY);
 		if ($profile) {
-						if (!strcmp($profile['username'], $username) && !strcmp($profile['password'], $password)) {
+						if (!strcmp($profile['login'], $login) && !strcmp($profile['password'], $password)) {
+							$_SESSION['USER']['user_id'] = $profile['id'];
+							$_SESSION['USER']['login'] = $profile['login'];
 							$_SESSION['USER']['username'] = $profile['username'];
+							$_SESSION['USER']['avatar'] = $profile['avatar'];
 							$_SESSION['USER']['last_login'] = $profile['last_login'];
-							$stmt = $this->db->prepare('UPDATE users SET last_login = :last_login WHERE username = :username');
-							$stmt->execute(['last_login' => $startTime, 'username' => $username]);
+							$stmt = $this->db->prepare('UPDATE users SET last_login = :last_login WHERE login = :login');
+							$stmt->execute(['last_login' => $startTime, 'login' => $login]);
 							return true;
 						}
 		} else return false;
 
+	}
+
+	function getUserNameByID(int $user_id)
+	{
+		$stmt = $this->db->prepare('SELECT username FROM users WHERE id = :user_id');
+		$stmt->execute(['user_id' => $user_id]);
+		return $stmt->fetchColumn();
+	}
+
+	function getLoginByID(int $user_id)
+	{
+		$stmt = $this->db->prepare('SELECT login FROM users WHERE id = :user_id');
+		$stmt->execute(['user_id' => $user_id]);
+		return $stmt->fetchColumn();
+	}
+
+	function getUserAvatarByID(int $user_id)
+	{
+		$stmt = $this->db->prepare('SELECT avatar FROM users WHERE id = :user_id');
+		$stmt->execute(['user_id' => $user_id]);
+		return $stmt->fetchColumn();
 	}
 
 	function NewMessages(int $topic_id, $timestamp)

@@ -12,11 +12,11 @@
 
 $soundcloud_url_pattern	= '/https:\/\/soundcloud.com\/\S*/'; # Soundcloud виджет по ссылке
 
-function isMyPost($author) {
+function isMyPost(string $login) {
 	##
 	# Выделяем посты автора для него самого
 	#
-	return strcmp($author, $_SESSION['USER']['username']);
+	return strcmp($login, $_SESSION['USER']['login']);
 }
 
 #
@@ -24,7 +24,10 @@ function isMyPost($author) {
 foreach ($posts as $row)
 {
 
-	$curr_author = $row['author']; # Автор текущего (в цикле) поста
+	$login = $stdout->getLoginByID($row['author']);
+	$username = $stdout->getUserNameByID($row['author']);
+	$avatar = $stdout->getUserAvatarByID($row['author']);
+	$curr_author = $login; # Автор текущего (в цикле) поста
 	$url = ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; # Текущий URL
 	$url = explode('#', $url);
 
@@ -43,19 +46,19 @@ foreach ($posts as $row)
 		</div>
 
 		<div class="d-none d-md-block col-md-2">
-			<?php if(isMyPost($row['author'])) { ?>
-				<img src="https://via.placeholder.com/120" class="img-fluid sticky-top" style="top: 10px;">
+			<?php if(isMyPost($login)) { ?>
+				<img src="<?php !empty($avatar) ? print 'avatars/thumbs/' . $avatar : print 'https://via.placeholder.com/150' ?>" class="img-fluid sticky-top" style="top: 10px;">
 			<?php } ?>
 		</div>
 		<div class="col-12 col-md-10 mb-1">
-			<?php if(isMyPost($row['author'])) { ?>
+			<?php if(isMyPost($login)) { ?>
 				<h6>
-					<strong class="h2 fw-bold"><?=$row['author']?></strong>
+					<strong class="h2 fw-bold"><?=$username?></strong>
 					
 				</h6>
 			<?php } ?>
 
-			<div class="p-3 p-md-4 <?=isMyPost($row['author']) ? 'bg-white' : 'bg-light'?> rounded-5 shadow text-break">
+			<div class="p-3 p-md-4 <?=isMyPost($login) ? 'bg-white' : 'bg-light'?> rounded-5 shadow text-break">
 				<?=preg_replace_callback($soundcloud_url_pattern, function ($matches) { return "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=$matches[0]&show_artwork=true'></iframe>"; }, $row['post'])?>
 
 
@@ -75,19 +78,19 @@ foreach ($posts as $row)
 		<div class="pt-5"></div>
 
 		<div class="d-none d-md-block col-md-2">
-			<?php if(isMyPost($row['author'])) { ?>
-				<img src="https://via.placeholder.com/120" class="img-fluid sticky-top" style="top: 10px;">
+			<?php if(isMyPost($login)) { ?>
+				<img src="<?php !empty($avatar) ? print 'avatars/thumbs/' . $avatar : print 'https://via.placeholder.com/150' ?>" class="img-fluid sticky-top" style="top: 10px;">
 			<?php } ?>
 		</div>
 		<div class="col-12 col-md-10 mb-1">
-			<?php if(isMyPost($row['author'])) { ?>
+			<?php if(isMyPost($login)) { ?>
 				<h6>
-					<strong class="h2 fw-bold"><?=$row['author']?></strong>
+					<strong class="h2 fw-bold"><?=$username?></strong>
 					
 				</h6>
 			<?php } ?>
 
-			<div class="p-3 p-md-4 <?=isMyPost($row['author']) ? 'bg-white' : 'bg-light'?> rounded-5 shadow text-break">
+			<div class="p-3 p-md-4 <?=isMyPost($login) ? 'bg-white' : 'bg-light'?> rounded-5 shadow text-break">
 				<small class="text-muted float-end" style="font-size: 0.8em"><?=date("d M Y H:i", strtotime($row['date']))?> 
 					<a href="#<?=$row['id']?>" id="<?=$row['id']?>">#<?=$row['id']?></a>
 				</small><br><br>

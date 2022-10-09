@@ -12,7 +12,7 @@ class stdin {
 
 	}
 
-	function CreateTopic($name, $post, $category, $author, $cover)
+	function CreateTopic($name, $post, $category, int $author, $cover)
 	{
 
 		$stmt = $this->db->prepare('INSERT INTO topics (name, author, category, cover) VALUES (:name, :author, :category, :cover)');
@@ -34,7 +34,6 @@ class stdin {
 		return true;
 
 	}
-
 	function UpdateTopicCover($id, $cover)
 	{
 
@@ -44,8 +43,27 @@ class stdin {
 
 	}
 
+	function UpdateProfile($id, $username)
+	{
 
-	function CreatePost($author, $topic_id, $post)
+		$stmt = $this->db->prepare('UPDATE users SET username = :username WHERE id = :id');
+		$stmt->execute(['id' => $id, 'username' => $username]);
+		$_SESSION['USER']['username'] = $username;
+		return true;
+
+	}
+	function UpdateUserAvatar($id, $avatar)
+	{
+
+		$stmt = $this->db->prepare('UPDATE users SET avatar = :avatar WHERE id = :id');
+		$stmt->execute(['id' => $id, 'avatar' => $avatar]);
+		$_SESSION['USER']['avatar'] = $avatar;
+		return true;
+
+	}
+
+
+	function CreatePost(int $author, $topic_id, $post)
 	{
 		$stmt = $this->db->prepare('INSERT INTO posts (author, topic_id, post) VALUES (:author, :topic_id, :post)');
 		return $stmt->execute(['author' => $author, 'topic_id' => $topic_id, 'post' => $post]);
