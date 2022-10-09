@@ -39,16 +39,16 @@ function editorParser($src) {
 			switch($src[$key]['data']['style'])
 			{
 				case 'ordered':
-					$data .= '<ol>';
+					$data .= '<ol class="list-group list-group-numbered p-3">';
 					foreach ($src[$key]['data']['items'] as $value) {
-						$data .= '<li>' . $value . '</li>';
+						$data .= '<li class="list-group-item">' . $value . '</li>';
 					}
 					$data .= '</ol>';
 					break;
 				case 'unordered':
-					$data .= '<ul>';
+					$data .= '<ul class="list-group p-3">';
 					foreach ($src[$key]['data']['items'] as $value) {
-						$data .= '<li>' . $value . '</li>';
+						$data .= '<li class="list-group-item">' . $value . '</li>';
 					}
 					$data .= '</ul>';
 					break;
