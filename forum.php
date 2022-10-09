@@ -52,8 +52,8 @@
 						<span class="fw-bold"><?=$row['name']?></span>
 						<small class="d-none d-md-inline text-muted ms-auto"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?></small>
 					</h6>
-					<p class="d-block d-md-none mb-0"><?=mb_substr($stdout->LastPost($row['id']), 0, 70)?></p>
-					<p class="d-none d-md-block mb-0"><?=mb_substr($stdout->LastPost($row['id']), 0, 180)?></p>
+					<p class="d-block d-md-none mb-0"><?=cutStr($stdout->LastPost($row['id']))?></p>
+					<p class="d-none d-md-block mb-0"><?=cutStr($stdout->LastPost($row['id']), 400)?></p>
 					<small class="d-md-none text-muted text-nowrap"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $row['author']?>
 					</small>
 				</div>

@@ -66,3 +66,12 @@
 		return $filename;
 
 	}
+
+	function cutStr($str, $length=128, $postfix='…')
+	{
+	    if ( strlen($str) <= $length)
+	        return $str;
+
+	    $temp = substr($str, 0, $length);
+	    return substr($temp, 0, strrpos($temp, ' ') ) . $postfix;
+	}
