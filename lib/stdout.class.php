@@ -115,7 +115,7 @@ class stdout {
 		$stmt = $this->db->prepare('SELECT post FROM posts WHERE topic_id = :topic_id ORDER BY id DESC');
 		$stmt->execute(['topic_id' => $topic_id]);
 		$post = $stmt->fetch(PDO::FETCH_LAZY);
-		return preg_replace('/https:\/\/soundcloud.com\/\S*/', '&#127925;', $post['post']);
+		return preg_replace(['/https:\/\/soundcloud.com\/\S*/', '/https:\/\/youtu.be\/\S*/', '/https:\/\/music.youtube.com\/\S*/'], '&#127925;', $post['post']);
 	}
 	function LastPostTimestamp(int $topic_id)
 	{

@@ -61,7 +61,7 @@
 					<span class="small d-md-none text-muted text-nowrap"><?=$timestamp . ', ' . $author?>
 					</span>
 				</div>
-				<div class="position-absolute text-center pe-2 end-0">
+				<div class="position-absolute text-end pe-2 end-0">
 					<span class="d-none d-md-block small text-muted">сообщений: <?=$stdout->CountPosts($row['id'])?></span>
 					<span class="d-none d-md-inline small text-muted ms-auto"><?=$timestamp . ', ' . $author?></span>
 					

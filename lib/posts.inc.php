@@ -10,7 +10,9 @@
 #
 
 
-$soundcloud_url_pattern	= '/https:\/\/soundcloud.com\/\S*/'; # Soundcloud виджет по ссылке
+$soundcloud_url_pattern	= '/https:\/\/soundcloud.com\/\S*/'; 		# Soundcloud виджет по ссылке
+$youtube_url_pattern	= '/https:\/\/youtu.be\/\S*/'; 	 		 	 		# YouTube виджет по ссылке
+$ytmusic_url_pattern	= '/https:\/\/music.youtube.com\/\S*/'; 	# YouTube Music виджет по ссылке
 
 function isMyPost(string $login) {
 	##
@@ -61,7 +63,11 @@ foreach ($posts as $row)
 			<?php } ?>
 
 			<div class="p-3 p-md-4 <?=isMyPost($login) ? 'bg-light' : 'bg-white'?> rounded-5 shadow text-break">
-				<?=preg_replace_callback($soundcloud_url_pattern, function ($matches) { return "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=$matches[0]&show_artwork=true'></iframe>"; }, $row['post'])?>
+				<?php $row['post'] = preg_replace_callback($soundcloud_url_pattern, function ($matches) { return "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=$matches[0]&show_artwork=true'></iframe>"; }, $row['post'])?>
+
+				<?php $row['post'] = preg_replace_callback($ytmusic_url_pattern, function ($matches) { $url = stristr(substr(strip_tags(stristr($matches[0], '=')), 1), '&', true); return "<iframe width='100%' height='315' src='https://www.youtube-nocookie.com/embed/$url' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"; }, $row['post'])?>
+
+				<?=preg_replace_callback($youtube_url_pattern, function ($matches) { $url = substr(strip_tags(strrchr($matches[0], '/')), 1); return "<iframe width='100%' height='315' src='https://www.youtube-nocookie.com/embed/$url' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"; }, $row['post'])?>
 
 
 <?php
@@ -98,7 +104,13 @@ foreach ($posts as $row)
 				<small class="text-muted float-end" style="font-size: 0.8em"><?=passed($timestamp)?> 
 					<a href="#<?=$row['id']?>" id="<?=$row['id']?>">#<?=$row['id']?></a>
 				</small><br><br>
-				<?=preg_replace_callback($soundcloud_url_pattern, function ($matches) { return "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=$matches[0]&show_artwork=true'></iframe>"; }, $row['post'])?>
+				<?php $row['post'] = preg_replace_callback($soundcloud_url_pattern, function ($matches) { return "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=$matches[0]&show_artwork=true'></iframe>"; }, $row['post'])?>
+
+				<?php $row['post'] = preg_replace_callback($ytmusic_url_pattern, function ($matches) { $url = strip_tags(stristr($matches[0], '=', true)); return "<iframe width='100%' height='315' src='https://www.youtube-nocookie.com/embed/$url' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"; }, $row['post'])?>
+
+				<?php $row['post'] = preg_replace_callback($ytmusic_url_pattern, function ($matches) { $url = stristr(substr(strip_tags(stristr($matches[0], '=')), 1), '&', true); return "<iframe width='100%' height='315' src='https://www.youtube-nocookie.com/embed/$url' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"; }, $row['post'])?>
+
+				<?=preg_replace_callback($youtube_url_pattern, function ($matches) { $url = substr(strip_tags(strrchr($matches[0], '/')), 1); return "<iframe width='100%' height='315' src='https://www.youtube-nocookie.com/embed/$url' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"; }, $row['post'])?>
 
 
 <?php
@@ -112,7 +124,11 @@ foreach ($posts as $row)
 
 		<p class="text-end" style="font-size: 0.8em"><a href="#<?=$row['id']?>" style="color:#cfcfcf;text-decoration:none;" id="<?=$row['id']?>">дополнено <?=passed($timestamp)?></a></p>
 
-		<?=preg_replace_callback($soundcloud_url_pattern, function ($matches) { return "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=$matches[0]&show_artwork=true'></iframe>"; }, $row['post'])?>
+		<?php $row['post'] = preg_replace_callback($soundcloud_url_pattern, function ($matches) { return "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=$matches[0]&show_artwork=true'></iframe>"; }, $row['post'])?>
+
+		<?php $row['post'] = preg_replace_callback($ytmusic_url_pattern, function ($matches) { $url = stristr(substr(strip_tags(stristr($matches[0], '=')), 1), '&', true); return "<iframe width='100%' height='315' src='https://www.youtube-nocookie.com/embed/$url' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"; }, $row['post'])?>
+
+		<?=preg_replace_callback($youtube_url_pattern, function ($matches) { $url = substr(strip_tags(strrchr($matches[0], '/')), 1); return "<iframe width='100%' height='315' src='https://www.youtube-nocookie.com/embed/$url' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"; }, $row['post'])?>
 
 
 <?php
