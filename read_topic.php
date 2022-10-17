@@ -61,8 +61,8 @@
 
 
 <!-- ВЁРСТКА ТОПИКА -->
-<body>
-	<main class="w-100 bg-light m-auto" style="min-height: 1600px;">
+<body class="bg-light">
+	<main class="w-100 m-auto">
 
 
 		<!-- ОБЛОЖКА -->
@@ -169,7 +169,7 @@
 								<textarea type="text" class="form-control form-control-lg border-0 mb-4" id="topicFirstPostInput" name="FIRSTPOST" placeholder="Можно использовать стандартные html теги для оформления" rows=12><?=$stdout->FirstPost($topic_id)?></textarea>
 
 								<label class="h5 mb-3" for="topicCoverInput">Обложка (необязательно)</label><br>
-								<img class="img-fluid" src="<?php !empty($topic['cover']) ? print 'covers/thumbs/' . $topic['cover'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$topic['name'] . ' cover'; ?>">
+								<img class="img-fluid" src="<?php !empty($topic['cover']) ? print 'covers/thumbs/' . $topic['cover'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$topic['name'] . ' обложка'; ?>">
 								<input type="file" class="form-control border-0 mb-5" id="topicCoverInput" name="COVER" accept=".jpg,.jpeg,.png,.webp">
 
 							</div>

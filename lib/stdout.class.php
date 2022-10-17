@@ -54,6 +54,14 @@ class stdout {
 		return $stmt->fetchColumn();
 	}
 
+	function getLastPostAuthor(int $topic_id)
+	{
+		$stmt = $this->db->prepare('SELECT author FROM posts WHERE topic_id = :topic_id ORDER BY id DESC');
+		$stmt->execute(['topic_id' => $topic_id]);
+		$user_id = $stmt->fetchColumn();
+		return $user_id;
+	}
+
 	function NewMessages(int $topic_id, $timestamp)
 	{
 		$stmt = $this->db->prepare('SELECT date FROM posts WHERE topic_id = :topic_id ORDER BY id DESC');
@@ -79,6 +87,12 @@ class stdout {
 
 	}
 
+	function CountPosts(int $topic_id)
+	{
+		$stmt = $this->db->prepare('SELECT count(*) FROM posts WHERE topic_id = :topic_id');
+		$stmt->execute(['topic_id' => $topic_id]);
+		return $stmt->fetchColumn();
+	}
 	function ListPosts(int $topic_id)
 	{
 
@@ -90,7 +104,7 @@ class stdout {
 	function FirstPost(int $topic_id)
 	{
 
-		$stmt = $this->db->prepare('SELECT * FROM posts WHERE topic_id = :topic_id ORDER BY id');
+		$stmt = $this->db->prepare('SELECT post FROM posts WHERE topic_id = :topic_id ORDER BY id');
 		$stmt->execute(['topic_id' => $topic_id]);
 		$post = $stmt->fetch(PDO::FETCH_LAZY);
 		return preg_replace('/https:\/\/soundcloud.com\/\S*/', '&#127925;', $post['post']);
@@ -98,10 +112,19 @@ class stdout {
 	function LastPost(int $topic_id)
 	{
 
-		$stmt = $this->db->prepare('SELECT * FROM posts WHERE topic_id = :topic_id ORDER BY id DESC');
+		$stmt = $this->db->prepare('SELECT post FROM posts WHERE topic_id = :topic_id ORDER BY id DESC');
 		$stmt->execute(['topic_id' => $topic_id]);
 		$post = $stmt->fetch(PDO::FETCH_LAZY);
 		return preg_replace('/https:\/\/soundcloud.com\/\S*/', '&#127925;', $post['post']);
+	}
+	function LastPostTimestamp(int $topic_id)
+	{
+
+		$stmt = $this->db->prepare('SELECT date FROM posts WHERE topic_id = :topic_id ORDER BY id DESC');
+		$stmt->execute(['topic_id' => $topic_id]);
+		$post = $stmt->fetchColumn();
+		$passed = new DateTime($post, new DateTimeZone('Europe/Moscow'));
+		return $passed;
 	}
 
 	function ListCategories()

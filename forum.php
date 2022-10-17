@@ -11,9 +11,9 @@
 
 </head>
 
-<body>
+<body class="bg-light">
 
-	<main class="w-100 bg-light m-auto pb-5" style="min-height: 1440px;">
+	<main class="w-100 m-auto pb-5">
 
 <?php
 
@@ -29,6 +29,9 @@
 
 	foreach ($topics as $row)
 	{
+
+		$timestamp = passed($stdout->LastPostTimestamp($row['id']));
+		$author = $stdout->getUserNameByID($stdout->getLastPostAuthor($row['id']));
 
 		#
 		# Печатаем названия категорий в списке тем
@@ -46,16 +49,22 @@
 
 		<div class="list-group p-2 mx-sm-5">
 			<a href="read_topic.php?topic_id=<?=$row['id']?><?php if ($stdout->NewMessages($row['id'], $_SESSION['USER']['last_login']) && empty($_SESSION['TOPIC_READ'][$row['id']])) print '&read=true'; ?>" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-				<img src="<?php !empty($row['cover']) ? print 'covers/thumbs/' . $row['cover'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$row['name'] . ' cover'; ?>" class="flex-shrink-0" width="128" height="128">
+				<img src="<?php !empty($row['cover']) ? print 'covers/thumbs/' . $row['cover'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$row['name'] . ' обложка'; ?>" class="flex-shrink-0 rounded" width="94" height="94">
 				<div class="d-flex flex-column w-100">
-					<h6 class="d-flex mb-md-3">
+					<h5 class="d-flex mb-md-3">
 						<span class="fw-bold"><?=$row['name']?></span>
-						<small class="d-none d-md-inline text-muted ms-auto"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $stdout->getUserNameByID($row['author'])?></small>
-					</h6>
-					<p class="d-block d-md-none mb-0"><?=mb_strimwidth(strip_tags($stdout->LastPost($row['id']), '<br>'), 0, 60, '…')?></p>
+						
+					</h5>
+					<p class="d-block d-md-none mb-0"><?=mb_strimwidth(strip_tags($stdout->LastPost($row['id']), '<br>'), 0, 55, '…')?></p>
 					<p class="d-none d-md-block mb-0"><?=mb_strimwidth(strip_tags($stdout->LastPost($row['id']), '<br>'), 0, 256, '…')?></p>
-					<small class="d-md-none text-muted text-nowrap"><?=date("d M Y H:i", strtotime($row['date'])) . ', ' . $stdout->getUserNameByID($row['author'])?>
-					</small>
+					
+					<span class="small d-md-none text-muted text-nowrap"><?=$timestamp . ', ' . $author?>
+					</span>
+				</div>
+				<div class="position-absolute text-center pe-2 end-0">
+					<span class="d-none d-md-block small text-muted">сообщений: <?=$stdout->CountPosts($row['id'])?></span>
+					<span class="d-none d-md-inline small text-muted ms-auto"><?=$timestamp . ', ' . $author?></span>
+					
 				</div>
 				<?php require 'lib/print_marker_new_messages.php'; ?>
 				

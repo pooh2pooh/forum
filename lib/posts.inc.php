@@ -16,7 +16,7 @@ function isMyPost(string $login) {
 	##
 	# Выделяем посты автора для него самого
 	#
-	return strcmp($login, $_SESSION['USER']['login']);
+	return !strcmp($login, $_SESSION['USER']['login']);
 }
 
 #
@@ -26,6 +26,7 @@ foreach ($posts as $row)
 
 	$login = $stdout->getLoginByID($row['author']);
 	$username = $stdout->getUserNameByID($row['author']);
+	$timestamp = new DateTime($row['date'], new DateTimeZone('Europe/Moscow'));
 	$avatar = $stdout->getUserAvatarByID($row['author']);
 	$curr_author = $login; # Автор текущего (в цикле) поста
 	$url = ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; # Текущий URL
@@ -42,23 +43,24 @@ foreach ($posts as $row)
 ?>
 
 		<div class="text-center mb-5">
-			<button type="button" class="btn" id="copyToClipboardButton" title="Копировать сылку на тему в буфер обмена">тема создана <strong><?=date("d M Y в H:i", strtotime($row['date']))?></strong></button>
+			<button type="button" class="btn" id="copyToClipboardButton" title="Копировать сылку на тему в буфер обмена">тема создана <strong><?=passed($timestamp)?></strong></button>
 		</div>
 
 		<div class="d-none d-md-block col-md-2">
-			<?php if(isMyPost($login)) { ?>
+			<?php if(!isMyPost($login)) { ?>
 				<img src="<?php !empty($avatar) ? print 'avatars/thumbs/' . $avatar : print 'https://via.placeholder.com/150' ?>" class="img-fluid sticky-top" style="top: 10px;">
 			<?php } ?>
 		</div>
 		<div class="col-12 col-md-10 mb-1">
-			<?php if(isMyPost($login)) { ?>
+			<?php if(!isMyPost($login)) { ?>
 				<h6>
-					<strong class="h2 fw-bold"><?=$username?></strong>
+					<img src="<?php !empty($avatar) ? print 'avatars/thumbs/' . $avatar : print 'https://via.placeholder.com/150' ?>" class="d-inline d-md-none" width="32px;">
+					<strong class="h2 fw-bold align-middle"><?=$username?></strong>
 					
 				</h6>
 			<?php } ?>
 
-			<div class="p-3 p-md-4 <?=isMyPost($login) ? 'bg-white' : 'bg-light'?> rounded-5 shadow text-break">
+			<div class="p-3 p-md-4 <?=isMyPost($login) ? 'bg-light' : 'bg-white'?> rounded-5 shadow text-break">
 				<?=preg_replace_callback($soundcloud_url_pattern, function ($matches) { return "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=$matches[0]&show_artwork=true'></iframe>"; }, $row['post'])?>
 
 
@@ -78,20 +80,22 @@ foreach ($posts as $row)
 		<div class="pt-5"></div>
 
 		<div class="d-none d-md-block col-md-2">
-			<?php if(isMyPost($login)) { ?>
+			<?php if(!isMyPost($login)) { ?>
 				<img src="<?php !empty($avatar) ? print 'avatars/thumbs/' . $avatar : print 'https://via.placeholder.com/150' ?>" class="img-fluid sticky-top" style="top: 10px;">
 			<?php } ?>
 		</div>
+
 		<div class="col-12 col-md-10 mb-1">
-			<?php if(isMyPost($login)) { ?>
+			<?php if(!isMyPost($login)) { ?>
 				<h6>
-					<strong class="h2 fw-bold"><?=$username?></strong>
+					<img src="<?php !empty($avatar) ? print 'avatars/thumbs/' . $avatar : print 'https://via.placeholder.com/150' ?>" class="d-inline d-md-none" width="32px;">
+					<strong class="h2 fw-bold align-middle"><?=$username?></strong>
 					
 				</h6>
 			<?php } ?>
 
-			<div class="p-3 p-md-4 <?=isMyPost($login) ? 'bg-white' : 'bg-light'?> rounded-5 shadow text-break">
-				<small class="text-muted float-end" style="font-size: 0.8em"><?=date("d M Y H:i", strtotime($row['date']))?> 
+			<div class="p-3 p-md-4 <?=isMyPost($login) ? 'bg-light' : 'bg-white'?> rounded-5 shadow text-break">
+				<small class="text-muted float-end" style="font-size: 0.8em"><?=passed($timestamp)?> 
 					<a href="#<?=$row['id']?>" id="<?=$row['id']?>">#<?=$row['id']?></a>
 				</small><br><br>
 				<?=preg_replace_callback($soundcloud_url_pattern, function ($matches) { return "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=$matches[0]&show_artwork=true'></iframe>"; }, $row['post'])?>
@@ -106,7 +110,7 @@ foreach ($posts as $row)
 		$prev_author = $curr_author; # Запоминаем автора поста, нужен для вывода следующего поста (функция ДОПОЛНЕНО)
 ?>
 
-		<p class="text-end" style="font-size: 0.8em"><a href="#<?=$row['id']?>" style="color:#cfcfcf;text-decoration:none;" id="<?=$row['id']?>">дополнено <?=date("d M Y H:i", strtotime($row['date']))?></a></p>
+		<p class="text-end" style="font-size: 0.8em"><a href="#<?=$row['id']?>" style="color:#cfcfcf;text-decoration:none;" id="<?=$row['id']?>">дополнено <?=passed($timestamp)?></a></p>
 
 		<?=preg_replace_callback($soundcloud_url_pattern, function ($matches) { return "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=$matches[0]&show_artwork=true'></iframe>"; }, $row['post'])?>
 
