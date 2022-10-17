@@ -31,7 +31,7 @@
 
 <!-- ВЁРСТКА СТРАНИЦЫ -->
 <body>
-	<main class="w-100 m-auto" style="min-height: 1600px;">
+	<main style="min-height: 1600px;">
 
 		<!-- НАСТРОЙКИ -->
 		<div class="container">
@@ -45,21 +45,32 @@
 						<br>
 						<img class="img-fluid" src="<?php !empty($_SESSION['USER']['avatar']) ? print 'avatars/thumbs/' . $_SESSION['USER']['avatar'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$_SESSION['USER']['username'] . ' avatar'; ?>">
 						<input type="file" class="form-control border-0 mb-5" id="userAvatarInput" name="AVATAR" accept=".jpg,.jpeg,.png,.webp">
+
+						<div class="d-none d-lg-block">
+							<div class="d-grid gap-2">
+								<a href="#" class="btn btn-success bg-gradient btn-lg" onclick="UpdateProfile(<?=$_SESSION['USER']['user_id']?>)"><span>Сохранить</span>
+								</a>
+								<a href="#" class="btn btn-lg" onclick="history.back()">
+									<span>Закрыть</span>
+								</a>
+							</div>
+						</div>
 						
 					</div>
 				</div>
 			</form>
+
 		</div>
 
 	</main>
 
 
-	<footer class="fixed-bottom bg-navbar">
+	<footer class="fixed-bottom bg-navbar d-lg-none">
 		<div class="container-fluid">
 			<div class="d-flex">
 				<ul class="nav col-12 my-1 my-md-0 text-small justify-content-evenly">
 					<li class="text-center small">
-						<a href="forum.php" class="nav-link">
+						<a href="#" class="nav-link" onclick="history.back()">
 							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="pink" class="bi bi-x" viewBox="0 0 16 16">
 							  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
 							</svg>

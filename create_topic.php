@@ -56,7 +56,10 @@
 						<label class="h5 mb-3" for="topicCoverInput">Обложка (необязательно)</label>
 						<input type="file" class="form-control border-0 mb-5" id="topicCoverInput" name="COVER" accept=".jpg,.jpeg,.png,.webp">
 
-						<button type="submit" class="btn btn-success bg-success bg-gradient btn-lg fw-bold w-100">Создать</button>
+						<div class="d-grid gap-2">
+							<button type="submit" class="btn btn-success bg-gradient btn-lg w-100">Опубликовать</button>
+							<a href="#" class="btn btn-lg w-100" onclick="history.back()">Закрыть</a>
+						</div>
 						
 					</div>
 				</div>
@@ -66,7 +69,7 @@
 	</main>
 
 
-	<footer class="fixed-bottom bg-navbar">
+	<footer class="fixed-bottom bg-navbar d-lg-none">
 		<div class="container-fluid">
 			<div class="d-flex">
 				<ul class="nav col-12 my-1 my-md-0 text-small justify-content-evenly">
@@ -76,7 +79,7 @@
 							  <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
 							</svg>
 							<br>
-							<span style="font-size:0.7em">ТЕМЫ</span>
+							<span style="font-size:0.7em">ФОРУМ</span>
 					</a></li>
 					<li class="text-center small"><a href="create_topic.php" class="nav-link">
 						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bookmark-plus-fill" viewBox="0 0 16 16">
