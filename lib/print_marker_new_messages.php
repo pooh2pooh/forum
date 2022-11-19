@@ -11,7 +11,14 @@
 
 ?>
 
-		<span class="d-block d-md-none position-absolute top-0 translate-middle badge rounded-pill bg-danger text-danger" style="left: 97%">&bull;</span>
-		<span class="d-none d-md-block position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-danger">&bull;</span>
+		<span class="d-block d-md-none position-absolute top-0 p-2 bg-danger border border-light rounded-circle" style="left: 98%">
+			<span class="visually-hidden">Есть новые сообщения</span>
+		</span>
+		<span class="d-none d-md-block d-xl-none position-absolute top-0 p-2 bg-danger border border-light rounded-circle" style="left: 98%">
+			<span class="visually-hidden">Есть новые сообщения</span>
+		</span>
+		<span class="d-none d-xl-block position-absolute top-0 p-2 bg-danger border border-light rounded-circle" style="left: 99%">
+			<span class="visually-hidden">Есть новые сообщения</span>
+		</span>
 
 <?php } ?>

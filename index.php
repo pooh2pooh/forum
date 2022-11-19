@@ -7,12 +7,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Закрытый форум Харибда, получить приглашение сюда можно только от действующего участника, после чего нужно повысить уровень аккаунта из временного, — в постоянный. Удачи 🌹">
 	<title>Харибда</title>
-	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/signin.css" rel="stylesheet">
 </head>
 
 <body class="text-center">
-
 	<main class="form-signin w-100 m-auto">
 
 <?php
@@ -42,6 +41,8 @@ if (isset($_POST['USERNAME']) && isset($_POST['PASSWORD'])) {
 			</div>
 
 			<button class="w-100 btn btn-lg btn-primary bg-gradient mt-3" type="submit">Вход</button>
+
+
 			<p class="mt-5 mb-3 badge text-dark">
 				С
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">

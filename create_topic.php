@@ -58,7 +58,7 @@
 
 						<div class="d-grid gap-2">
 							<button type="submit" class="btn btn-success bg-gradient btn-lg w-100">Опубликовать</button>
-							<a href="#" class="btn btn-lg w-100" onclick="history.back()">Закрыть</a>
+							<a href="#" class="btn btn-lg w-100 d-none d-lg-block" onclick="history.go(-1); event.preventDefault();">Закрыть</a>
 						</div>
 						
 					</div>

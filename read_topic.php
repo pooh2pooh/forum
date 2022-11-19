@@ -82,7 +82,7 @@
 		<div class="container-fluid" style="position:absolute;">
 
 			<aside class="sticky-top d-none d-lg-block m-5 float-end" style="height: 100%;">
-					<ul class="list-group shadow-sm">
+					<div class="list-group shadow-sm">
 						<a class="list-group-item list-group-item-action px-5 bg-success bg-gradient text-white" data-bs-toggle="modal" href="#modalEditor" role="button">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
 							  <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
@@ -103,15 +103,15 @@
 								</svg>
 							Настройки
 						</a>
-					</ul>
-					<ul class="list-group shadow-sm pt-2">
+					</div>
+					<div class="list-group shadow-sm pt-2">
 						<a class="list-group-item list-group-item-action px-5 bg-light" href="#">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
 							  <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
 							</svg>
 							Вверх
 						</a>
-					</ul>
+					</div>
 				</aside>
 
 			<div class="row">
@@ -134,6 +134,7 @@
 
 			</div>
 		</div>
+	</div>
 
 	</main>
 
@@ -208,10 +209,6 @@
 
 							</div>
 						</div>
-						
-							
-
-
 					</form>
 
 				</div>
@@ -252,8 +249,6 @@
 	<script src="js/editor_settings.js" defer></script>
 	<script src="js/copyToClipboard.js" defer></script>
 	<script src="js/player/api.js" type="text/javascript" defer></script>
-
-
 </body>
 </html>
 
