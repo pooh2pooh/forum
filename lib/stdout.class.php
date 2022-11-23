@@ -33,6 +33,24 @@ class stdout {
 
 	}
 
+	function GetConfig($name)
+	{
+		// Возвращает значение настройки по имени
+		$stmt = $this->db->prepare("SELECT value FROM config WHERE name = :name");
+		$stmt->execute(['name' => $name]);
+		return $stmt->fetchColumn();
+
+	}
+
+	function GetProfile($username)
+	{
+		// Возвращает массив со всеми данными профиля из базы
+		$stmt = $this->db->prepare("SELECT * FROM users WHERE username = :username");
+		$stmt->execute(['username' => $username]);
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+
+	}
+
 	function getUserNameByID(int $user_id)
 	{
 		$stmt = $this->db->prepare('SELECT username FROM users WHERE id = :user_id');
