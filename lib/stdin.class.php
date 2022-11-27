@@ -43,12 +43,13 @@ class stdin {
 
 	}
 
-	function UpdateProfile($id, $username)
+	function UpdateProfile($id, $username, $lastfm = '')
 	{
 
-		$stmt = $this->db->prepare('UPDATE users SET username = :username WHERE id = :id');
-		$stmt->execute(['id' => $id, 'username' => $username]);
+		$stmt = $this->db->prepare('UPDATE users SET username = :username, lastfm_account = :lastfm WHERE id = :id');
+		$stmt->execute(['id' => $id, 'username' => $username, 'lastfm' => $lastfm]);
 		$_SESSION['USER']['username'] = $username;
+		$_SESSION['USER']['lastfm_account'] = $lastfm;
 		return true;
 
 	}

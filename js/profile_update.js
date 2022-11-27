@@ -12,7 +12,7 @@ function UpdateProfile(user_id) {
     contentType: false,
 		success: function(data) {
 			console.log('SUCCESS update avatar user');
-			location.reload();
+			location.href = '/';
 		},
 		error: function() {
 			console.log('ERROR update avatar user');
@@ -24,7 +24,8 @@ function UpdateProfile(user_id) {
 		url: 'settings.php?user_id=' + user_id,
 		type: 'POST',
 		data: {
-			username: $('#userNameInput').val()
+			username: $('#userNameInput').val(),
+			lastfm: $('#lastfmInput').val()
 		},
 		success: function(data) {
 			console.log('SUCCESS update data user');

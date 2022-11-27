@@ -22,8 +22,8 @@
 
 	#
 	# Сохраняем изменённые данные пользователя
-	if(!empty($_POST['username']))
-		$stdin->UpdateProfile($_GET['user_id'], htmlspecialchars($_POST['username']));
+	if(!empty($_POST['username']) || !empty($_POST['lastfm']))
+		$stdin->UpdateProfile($_GET['user_id'], htmlspecialchars($_POST['username']), htmlspecialchars($_POST['lastfm']));
 	if(!empty($_FILES['user_avatar']['name']))
 		$stdin->UpdateUserAvatar($_GET['user_id'], uploadAvatar($_FILES['user_avatar']));
 
@@ -38,6 +38,7 @@
 			<form action="create_topic.php" method="post" enctype="multipart/form-data">
 				<div class="row my-5">
 					<div class="col-md-8 mx-auto">
+
 						<label class="h4 mb-3 fw-bold" for="userNameInput">Имя:</label>
 						<input class="form-control form-control-lg border-0 mb-4" id="userNameInput" name="NAME" placeholder="Отображается везде" value="<?=$_SESSION['USER']['username']?>" autofocus>
 						
@@ -46,11 +47,14 @@
 						<img class="img-fluid" src="<?php !empty($_SESSION['USER']['avatar']) ? print 'avatars/thumbs/' . $_SESSION['USER']['avatar'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$_SESSION['USER']['username'] . ' avatar'; ?>">
 						<input type="file" class="form-control border-0 mb-5" id="userAvatarInput" name="AVATAR" accept=".jpg,.jpeg,.png,.webp">
 
+						<label class="h5 mb-3" for="lastfmInput">last.fm</label>
+						<input class="form-control form-control-lg border-0 mb-4" id="lastfmInput" name="LASTFM_ACCOUNT" placeholder="Логин на сервисе" value="<?=$_SESSION['USER']['lastfm_account']?>">
+
 						<div class="d-none d-lg-block">
 							<div class="d-grid gap-2">
-								<a href="#" class="btn btn-success bg-gradient btn-lg" onclick="UpdateProfile(<?=$_SESSION['USER']['user_id']?>)"><span>Сохранить</span>
+								<a href="#" class="btn btn-success bg-gradient btn-lg" onclick="this.classList.add('disabled'); UpdateProfile(<?=$_SESSION['USER']['user_id']?>)"><span>Сохранить</span>
 								</a>
-								<a href="#" class="btn btn-lg" onclick="history.go(-1); event.preventDefault();">
+								<a href="#" class="btn btn-lg" onclick="history.go(-1); return false;">
 									<span>Закрыть</span>
 								</a>
 							</div>

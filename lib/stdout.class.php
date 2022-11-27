@@ -25,12 +25,22 @@ class stdout {
 							$_SESSION['USER']['username'] = $profile['username'];
 							$_SESSION['USER']['avatar'] = $profile['avatar'];
 							$_SESSION['USER']['last_login'] = $profile['last_login'];
+							$_SESSION['USER']['lastfm_account'] = $profile['lastfm_account'];
 							$stmt = $this->db->prepare('UPDATE users SET last_login = :last_login WHERE login = :login');
 							$stmt->execute(['last_login' => $startTime, 'login' => $login]);
+							$activity = $this->db->prepare('INSERT INTO activity (login, action, timestamp) VALUES (:login, :action, :timestamp)');
+							$activity->execute(['login' => $login, 'action' => 'auth', 'timestamp' => $startTime]);
 							return true;
 						}
 		} else return false;
 
+	}
+
+	function GetActivity()
+	{
+
+		$stmt = $this->db->query('SELECT * FROM activity ORDER BY id DESC');
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	function GetConfig($name)
@@ -42,11 +52,13 @@ class stdout {
 
 	}
 
-	function GetProfile($username)
+	function GetProfile(string $username, string $who = 'Haribda')
 	{
 		// Возвращает массив со всеми данными профиля из базы
 		$stmt = $this->db->prepare("SELECT * FROM users WHERE username = :username");
 		$stmt->execute(['username' => $username]);
+		$activity = $this->db->prepare('INSERT INTO activity (login, action) VALUES (:login, :action)');
+		$activity->execute(['login' => $who, 'action' => 'view profile ' . $username]);
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 
 	}
@@ -97,10 +109,12 @@ class stdout {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	function GetTopic(int $topic_id)
+	function GetTopic(int $topic_id, string $who = 'Haribda')
 	{
 
 		$stmt = $this->db->query("SELECT * FROM topics WHERE id = $topic_id");
+		$activity = $this->db->prepare('INSERT INTO activity (login, action) VALUES (:login, :action)');
+		$activity->execute(['login' => $who, 'action' => 'view topic id' . $topic_id]);
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 
 	}

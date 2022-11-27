@@ -29,7 +29,7 @@ require 'lib/system.class.php';
 
 ?>
 
-		<aside class="sticky-top d-none d-lg-block m-5 float-end" style="height: 100%;">
+		<aside class="sticky-top d-none d-lg-block m-5 float-end" style="height: 100%; max-width: 25%;">
 			<div class="list-group shadow-sm">
 				<a class="list-group-item list-group-item-action px-5 bg-success bg-gradient text-white" href="create_topic.php">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
@@ -46,6 +46,7 @@ require 'lib/system.class.php';
 					Настройки
 				</a>
 			</div>
+			<?php require "lib/print_activity.php"; ?>
 		</aside>
 
 		<div class="row gap-1">

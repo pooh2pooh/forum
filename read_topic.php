@@ -37,12 +37,12 @@
 	{
 		#
 		# Получаем информацию о текущем топике
-		$topic = $stdout->GetTopic($topic_id);
+		$topic = $stdout->GetTopic($topic_id, $_SESSION['USER']['login']);
 		#
 		# Получаем посты в топике
 		$posts = $stdout->ListPosts($topic_id);
-		if (empty($topic) || empty($posts)) die('<link rel="stylesheet" href="css/bootstrap.min.css"><div class="text-center py-5"><a href="/"><img class="img-fluid" src="system-page-cover.png.webp"></a><h1 class="pt-3">Нет такой темы</h1>Попробуй <a href="/">вернуться на форум</a></div><!-- Что ты здесь хотел увидеть ? -->');
-	} else die('<link rel="stylesheet" href="css/bootstrap.min.css"><div class="text-center py-5"><a href="/"><img class="img-fluid" src="system-page-cover.png.webp"></a><h1 class="pt-3">Нет такой темы</h1>Попробуй <a href="/">вернуться на форум</a></div><!-- Что ты здесь хотел увидеть ? -->');
+		if (empty($topic) || empty($posts)) die('<meta name="viewport" content="width=device-width, initial-scale=1"><title>Тема не найдена</title><link rel="stylesheet" href="css/bootstrap.min.css"><div class="text-center py-5"><a href="/"><img class="img-fluid" src="system-page-cover.png.webp"></a><h1 class="pt-3">Нет такой темы</h1>Попробуй <a href="/">вернуться на форум</a></div><!-- Что ты здесь хотел увидеть ? -->');
+	} else die('<meta name="viewport" content="width=device-width, initial-scale=1"><title>Тема не найдена</title><link rel="stylesheet" href="css/bootstrap.min.css"><div class="text-center py-5"><a href="/"><img class="img-fluid" src="system-page-cover.png.webp"></a><h1 class="pt-3">Нет такой темы</h1>Попробуй <a href="/">вернуться на форум</a></div><!-- Что ты здесь хотел увидеть ? -->');
 
 	#
 	# Отмечаем тему прочитанной,
@@ -81,7 +81,7 @@
 		<!-- ПОСТЫ -->
 		<div class="container-fluid" style="position:absolute;">
 
-			<aside class="sticky-top d-none d-lg-block m-5 float-end" style="height: 100%;">
+			<aside class="sticky-top d-none d-lg-block m-5 float-end" style="height: 100%; max-width: 25%;">
 					<div class="list-group shadow-sm">
 						<a class="list-group-item list-group-item-action px-5 bg-success bg-gradient text-white" data-bs-toggle="modal" href="#modalEditor" role="button">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
@@ -112,6 +112,7 @@
 							Вверх
 						</a>
 					</div>
+					<?php require "lib/print_activity.php"; ?>
 				</aside>
 
 			<div class="row">
