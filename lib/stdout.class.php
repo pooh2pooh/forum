@@ -19,19 +19,19 @@ class stdout {
 		$stmt->execute(['login' => $login]);
 		$profile = $stmt->fetch(PDO::FETCH_LAZY);
 		if ($profile) {
-						if (!strcmp($profile['login'], $login) && !strcmp($profile['password'], $password)) {
-							$_SESSION['USER']['user_id'] = $profile['id'];
-							$_SESSION['USER']['login'] = $profile['login'];
-							$_SESSION['USER']['username'] = $profile['username'];
-							$_SESSION['USER']['avatar'] = $profile['avatar'];
-							$_SESSION['USER']['last_login'] = $profile['last_login'];
-							$_SESSION['USER']['lastfm_account'] = $profile['lastfm_account'];
-							$stmt = $this->db->prepare('UPDATE users SET last_login = :last_login WHERE login = :login');
-							$stmt->execute(['last_login' => $startTime, 'login' => $login]);
-							$activity = $this->db->prepare('INSERT INTO activity (login, action, timestamp) VALUES (:login, :action, :timestamp)');
-							$activity->execute(['login' => $login, 'action' => 'auth', 'timestamp' => $startTime]);
-							return true;
-						}
+			if (!strcmp($profile['login'], $login) && !strcmp($profile['password'], $password)) {
+				$_SESSION['USER']['user_id'] = $profile['id'];
+				$_SESSION['USER']['login'] = $profile['login'];
+				$_SESSION['USER']['username'] = $profile['username'];
+				$_SESSION['USER']['avatar'] = $profile['avatar'];
+				$_SESSION['USER']['last_login'] = $profile['last_login'];
+				$_SESSION['USER']['lastfm_account'] = $profile['lastfm_account'];
+				$stmt = $this->db->prepare('UPDATE users SET last_login = :last_login WHERE login = :login');
+				$stmt->execute(['last_login' => $startTime, 'login' => $login]);
+				$activity = $this->db->prepare('INSERT INTO activity (username, action, timestamp) VALUES (:username, :action, :timestamp)');
+				$activity->execute(['username' => $profile['username'], 'action' => 'auth', 'timestamp' => $startTime]);
+				return true;
+			}
 		} else return false;
 
 	}
@@ -57,8 +57,8 @@ class stdout {
 		// Возвращает массив со всеми данными профиля из базы
 		$stmt = $this->db->prepare("SELECT * FROM users WHERE username = :username");
 		$stmt->execute(['username' => $username]);
-		$activity = $this->db->prepare('INSERT INTO activity (login, action) VALUES (:login, :action)');
-		$activity->execute(['login' => $who, 'action' => 'view profile ' . $username]);
+		$activity = $this->db->prepare('INSERT INTO activity (username, action) VALUES (:username, :action)');
+		$activity->execute(['username' => $who, 'action' => 'view profile ' . $username]);
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 
 	}
@@ -113,8 +113,8 @@ class stdout {
 	{
 
 		$stmt = $this->db->query("SELECT * FROM topics WHERE id = $topic_id");
-		$activity = $this->db->prepare('INSERT INTO activity (login, action) VALUES (:login, :action)');
-		$activity->execute(['login' => $who, 'action' => 'view topic id' . $topic_id]);
+		$activity = $this->db->prepare('INSERT INTO activity (username, action) VALUES (:username, :action)');
+		$activity->execute(['username' => $who, 'action' => 'view topic id' . $topic_id]);
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 
 	}

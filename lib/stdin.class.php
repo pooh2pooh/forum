@@ -50,6 +50,8 @@ class stdin {
 		$stmt->execute(['id' => $id, 'username' => $username, 'lastfm' => $lastfm]);
 		$_SESSION['USER']['username'] = $username;
 		$_SESSION['USER']['lastfm_account'] = $lastfm;
+		$activity = $this->db->prepare('INSERT INTO activity (login, action) VALUES (:login, :action)');
+		$activity->execute(['username' => $username, 'action' => 'change profile']);
 		return true;
 
 	}
@@ -59,6 +61,13 @@ class stdin {
 		$stmt = $this->db->prepare('UPDATE users SET avatar = :avatar WHERE id = :id');
 		$stmt->execute(['id' => $id, 'avatar' => $avatar]);
 		$_SESSION['USER']['avatar'] = $avatar;
+
+		// very bad :(
+		$tmp = $this->db->prepare('SELECT username FROM users WHERE id = :id');
+		$tmp->execute(['id' => $id]);
+
+		$activity = $this->db->prepare('INSERT INTO activity (login, action) VALUES (:login, :action)');
+		$activity->execute(['username' => $tmp->fetchColumn(), 'action' => 'change avatar']);
 		return true;
 
 	}

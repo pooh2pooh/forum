@@ -18,7 +18,7 @@
 	if (!strlen($user)) {
 		die('<title>Профиль не найден</title><link rel="stylesheet" href="css/bootstrap.min.css"><div class="text-center py-5"><a href="/"><img class="img-fluid" src="system-page-cover.png.webp"></a><h1 class="pt-3">Нет такого пользователя</h1>Попробуй <a href="/">вернуться на форум</a></div><!-- Что ты здесь хотел увидеть ? -->');
 	} else {
-		$profile = $stdout->GetProfile($user, $_SESSION['USER']['login']);
+		$profile = $stdout->GetProfile($user, $_SESSION['USER']['username']);
 		if (!$profile)
 			die('<title>Профиль не найден</title><link rel="stylesheet" href="css/bootstrap.min.css"><div class="text-center py-5"><a href="/"><img class="img-fluid" src="system-page-cover.png.webp"></a><h1 class="pt-3">Нет такого пользователя</h1>Попробуй <a href="/">вернуться на форум</a></div><!-- Что ты здесь хотел увидеть ? -->');
 	}
@@ -78,10 +78,20 @@
 	if ($profile['lastfm_account']) {
 
 		$lastfm_api_key = $stdout->GetConfig('lastfm_api_key');
-		$lastfm_api_query = file_get_contents("https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=$profile[lastfm_account]&api_key=$lastfm_api_key&format=json&limit=5");
-		$lastfm = json_decode($lastfm_api_query, true);
+		$lastfm_account = urlencode($profile['lastfm_account']);
+		$lastfm_api_query = curl_init("https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=$lastfm_account&api_key=$lastfm_api_key&format=json&limit=5");
+		curl_setopt($lastfm_api_query, CURLOPT_RETURNTRANSFER, true);
 
-		if (count($lastfm['recenttracks']['track'])) {
+		if ( ($lastfm = curl_exec($lastfm_api_query) ) === false)
+			echo 'Curl error: ' . curl_error($lastfm_api_query);
+		else $lastfm = json_decode($lastfm, true);
+
+		curl_close($lastfm_api_query);
+
+		if (!strcmp($_SESSION['USER']['username'], $_GET['user']) && isset($lastfm['error']) && $lastfm['error'] == 6)
+			echo '<h3 class="text-danger"><span class="fw-bold">lastfm:</span> не найдет логин ' . $lastfm_account . '</h3>';
+
+		if (isset($lastfm['recenttracks']['track']) && count($lastfm['recenttracks']['track'])) {
 			
 			echo '<h3>Недавно слушал:</h3>';
 			echo '<ul class="list-group list-group-flush">';
@@ -101,6 +111,7 @@
 			}
 			echo '</ul>';
 		}
+
 	}
 
 ?>

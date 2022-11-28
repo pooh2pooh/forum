@@ -37,7 +37,7 @@
 	{
 		#
 		# Получаем информацию о текущем топике
-		$topic = $stdout->GetTopic($topic_id, $_SESSION['USER']['login']);
+		$topic = $stdout->GetTopic($topic_id, $_SESSION['USER']['username']);
 		#
 		# Получаем посты в топике
 		$posts = $stdout->ListPosts($topic_id);

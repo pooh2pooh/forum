@@ -10,7 +10,7 @@
 					$timestamp = new DateTime($row['timestamp'], new DateTimeZone('Europe/Moscow'));
 
 			?>
-		  <li class="list-group-item small"><span class="text-muted"><?=passed($timestamp)?></span> <?=$row['login'] . ' ' . $row['action']?></li>
+		  <li class="list-group-item small"><span class="text-muted"><?=passed($timestamp)?></span> <?=$row['username'] . ' ' . $row['action']?></li>
 			<?php } ?>
 		</ul>
 	</div>
