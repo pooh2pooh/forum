@@ -9,5 +9,5 @@
 
 	$endTime = new DateTime('now');
 	$runTime = $startTime->diff($endTime);
-	if (!empty($_SESSION['USER']['login']) && !strcmp($_SESSION['USER']['login'], 'pooh'))
+	if (!strcmp($_SESSION['USER']['login'], 'b158274419d6e6dc4c1088cacfd49283'))
 		echo $runTime->format('<span style="background:red;color:white;position:fixed;top:0;right:0;opacity:0.4;">%S секунд, %f микросекунд</span>');

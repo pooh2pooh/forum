@@ -57,7 +57,7 @@ foreach ($posts as $row)
 			<?php if(!isMyPost($login)) { ?>
 				<h6>
 					<img src="<?php !empty($avatar) ? print 'avatars/thumbs/' . $avatar : print 'https://via.placeholder.com/150' ?>" class="d-inline d-md-none" width="32px;">
-					<a class="h2 fw-bold align-middle text-dark" href="profile.php?user=<?=$username?>"><?=$username?></a>
+					<a class="h2 fw-bold align-middle text-dark" href="profile.php?user=<?=$login?>"><?=$username?></a>
 					
 				</h6>
 			<?php } ?>
@@ -95,7 +95,7 @@ foreach ($posts as $row)
 			<?php if(!isMyPost($login)) { ?>
 				<h6>
 					<img src="<?php !empty($avatar) ? print 'avatars/thumbs/' . $avatar : print 'https://via.placeholder.com/150' ?>" class="d-inline d-md-none" width="32px;">
-					<a href="profile.php?user=<?=$username?>" class="h2 fw-bold align-middle text-dark"><?=$username?></a>
+					<a href="profile.php?user=<?=$login?>" class="h2 fw-bold align-middle text-dark"><?=$username?></a>
 					
 				</h6>
 			<?php } ?>

@@ -52,14 +52,19 @@ class stdout {
 
 	}
 
-	function GetProfile(string $username, string $who = 'Haribda')
+	function GetProfile(string $login, string $who = 'Haribda')
 	{
 		// Возвращает массив со всеми данными профиля из базы
-		$stmt = $this->db->prepare("SELECT * FROM users WHERE username = :username");
-		$stmt->execute(['username' => $username]);
-		$activity = $this->db->prepare('INSERT INTO activity (username, action) VALUES (:username, :action)');
-		$activity->execute(['username' => $who, 'action' => 'view profile ' . $username]);
-		return $stmt->fetch(PDO::FETCH_ASSOC);
+		$stmt = $this->db->prepare("SELECT * FROM users WHERE login = :login");
+		$stmt->execute(['login' => $login]);
+
+		$profile = $stmt->fetch(PDO::FETCH_ASSOC);
+		if ($profile) {
+			$username = $profile['username'];
+			$activity = $this->db->prepare('INSERT INTO activity (username, action) VALUES (:username, :action)');
+			$activity->execute(['username' => $who, 'action' => 'view profile ' . $username]);
+		}
+		return $profile;
 
 	}
 

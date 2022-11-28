@@ -20,9 +20,9 @@ require 'lib/stdout.class.php';
 $stdout = new stdout();
 
 !isset($_SESSION['USER']['username']) ?: header('Location: /forum.php');
-if (isset($_POST['USERNAME']) && isset($_POST['PASSWORD'])) {
+if (isset($_POST['LOGIN']) && isset($_POST['PASSWORD'])) {
 
-	($stdout->Auth($_POST['USERNAME'], $_POST['PASSWORD']) ? header('Location: /forum.php') : die("<div class='text-center py-5'><img class='img-fluid' src='system-page-cover.png.webp'></div><!-- Что ты здесь хотел увидеть ? -->"));
+	($stdout->Auth(md5($_POST['LOGIN']), $_POST['PASSWORD']) ? header('Location: /forum.php') : die("<title>Харибда</title><div class='text-center py-5'><img class='img-fluid' src='system-page-cover.png.webp'></div><!-- Что ты здесь хотел увидеть ? -->"));
 	
 }
 
@@ -31,7 +31,7 @@ if (isset($_POST['USERNAME']) && isset($_POST['PASSWORD'])) {
 		<form action="/" method="post">
 
 			<div class="form-floating">
-				<input type="text" class="form-control" id="inputLogin" name="USERNAME" placeholder="username">
+				<input type="text" class="form-control" id="inputLogin" name="LOGIN" placeholder="username">
 				<label for="inputLogin">позывной</label>
 			</div>
 			<div class="form-floating">

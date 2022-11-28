@@ -1,4 +1,4 @@
-<?php if (!empty($_SESSION['USER']['login']) && !strcmp($_SESSION['USER']['login'], 'pooh')) { ?>
+<?php if (!strcmp($_SESSION['USER']['login'], 'b158274419d6e6dc4c1088cacfd49283')) { ?>
 	<div class="pt-5 overflow-scroll" style="max-height: 500px;">
 		<ul class="list-group list-group-flush">
 			<?php

@@ -50,7 +50,7 @@ class stdin {
 		$stmt->execute(['id' => $id, 'username' => $username, 'lastfm' => $lastfm]);
 		$_SESSION['USER']['username'] = $username;
 		$_SESSION['USER']['lastfm_account'] = $lastfm;
-		$activity = $this->db->prepare('INSERT INTO activity (login, action) VALUES (:login, :action)');
+		$activity = $this->db->prepare('INSERT INTO activity (username, action) VALUES (:username, :action)');
 		$activity->execute(['username' => $username, 'action' => 'change profile']);
 		return true;
 
@@ -66,7 +66,7 @@ class stdin {
 		$tmp = $this->db->prepare('SELECT username FROM users WHERE id = :id');
 		$tmp->execute(['id' => $id]);
 
-		$activity = $this->db->prepare('INSERT INTO activity (login, action) VALUES (:login, :action)');
+		$activity = $this->db->prepare('INSERT INTO activity (username, action) VALUES (:username, :action)');
 		$activity->execute(['username' => $tmp->fetchColumn(), 'action' => 'change avatar']);
 		return true;
 
