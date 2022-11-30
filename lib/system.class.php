@@ -20,7 +20,7 @@
 
 		$filename 		= basename($upload_image['name']);
 		$image 				= $dir . $filename;
-		$image_thumb 	= $dir . $filename;
+		$image_thumb 	= $dir . 'thumbs/' . $filename;
 
 		if ($upload_image['size'] > COVER_FILESIZE_MB*1000*1000)
 			die('Максимальный размер обложки ' . COVER_FILESIZE_MB . 'MB');
