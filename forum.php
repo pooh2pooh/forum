@@ -14,91 +14,91 @@
 	<main class="w-100 m-auto">
 		<div class="container-fluid pb-5">
 
-<?php
-
-#
-# Закрываем страницу для не авторизованных пользователей,
-# проверяет существование сессии
-require 'lib/auth.class.php';
-
-#
-# Системный класс,
-# там некоторые общие функции вроде обработки даты и время,
-# функции загрузки и обработки изображений и пр.
-require 'lib/system.class.php';
-
-?>
-
-		<aside class="sticky-top d-none d-lg-block m-5 float-end" style="height: 100%; max-width: 25%;">
-			<div class="list-group shadow-sm">
-				<a class="list-group-item list-group-item-action px-5 bg-success bg-gradient text-white" href="create_topic.php">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
-							<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
-							<path d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z"/>
-					</svg>
-					Создать
-				</a>
-				
-			</div>
-			
-			<?php require 'lib/print_myprofile.php'; ?>
-			<?php require 'lib/print_activity.php'; ?>
-		</aside>
-
-		<div class="row gap-1">
-
-<?php
-
-$topics = $stdout->ListTopics();
-$curr_category = 0;
-
-foreach ($topics as $row)
-{
-
-				$timestamp = passed($stdout->LastPostTimestamp($row['id']));
-				$author = $stdout->getUserNameByID($stdout->getLastPostAuthor($row['id']));
+			<?php
 
 				#
-				# Печатаем названия категорий в списке тем
-				if ($curr_category != $row['category'])
-				{
+				# Закрываем страницу для не авторизованных пользователей,
+				# проверяет существование сессии
+				#
+				require 'lib/auth.class.php';
 
-								$category_name = $stdout->getCategoryName($row['category']);
-								$curr_category = $row['category'];
-								echo "<h3 class='ps-2 pt-4 ps-sm-4 pt-sm-3 fw-bold text-muted text-uppercase'>$category_name</h3>";
+				#
+				# Системный класс,
+				# там некоторые общие функции вроде обработки даты и время,
+				# функции загрузки и обработки изображений и пр.
+				#
+				require 'lib/system.class.php';
 
-				}
-?>
+			?>
 
-		<div class="list-group">
-			<a href="read_topic.php?topic_id=<?=$row['id']?><?php if ($stdout->NewMessages($row['id'], $_SESSION['USER']['last_login']) && empty($_SESSION['TOPIC_READ'][$row['id']])) print '&read=true'; ?>" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-				<img src="<?php !empty($row['cover']) ? print 'covers/thumbs/' . $row['cover'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$row['name'] . ' обложка'; ?>" class="flex-shrink-0 rounded" width="94" height="94">
-				<div class="d-flex flex-column w-100">
-					<h5 class="d-flex mb-md-3">
-						<span class="fw-bold"><?=$row['name']?></span>
-						<span class="badge text-secondary text-bg-light ms-2"><?=$stdout->CountPosts($row['id'])?></span>
-
-					</h5>
-					<p class="d-block d-md-none mb-0"><?=mb_strimwidth(strip_tags($stdout->LastPost($row['id']), '<br>'), 0, 55, '…')?></p>
-					<p class="d-none d-md-block mb-0"><?=mb_strimwidth(strip_tags($stdout->LastPost($row['id']), '<br>'), 0, 256, '…')?></p>
-
-					<span class="small d-md-none text-muted text-nowrap"><?=$timestamp . ', ' . $author?>
-					</span>
-				</div>
-				<div class="position-absolute text-end pe-2 end-0">
+			<aside class="sticky-top d-none d-lg-block m-5 float-end" style="height: 100%; max-width: 25%;">
+				<div class="list-group shadow-sm">
+					<a class="list-group-item list-group-item-action px-5 bg-success bg-gradient text-white" href="create_topic.php">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
+								<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+								<path d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z"/>
+						</svg>
+						Создать
+					</a>
 					
-					<span class="d-none d-md-inline text-muted ms-auto" style="font-size: 0.6em"><?=$timestamp . ', ' . $author?></span>
-
 				</div>
-				<?php require 'lib/print_marker_new_messages.php'; ?>
+				
+				<?php require 'lib/print_myprofile.php';
+					require 'lib/print_activity.php'; ?>
+			</aside>
 
-			</a>
-		</div>
-<?php
-}
-?>
+			<div class="row gap-1">
 
-				<div class="pb-5"></div>
+				<?php
+
+					$topics = $stdout->getAllTopics();
+					$curr_category = 0;
+
+					foreach ($topics as $row) {
+
+						$timestamp = passed($stdout->getLastTopicPostTime($row['id']));
+						$author = $stdout->getUserNameByID($stdout->getLastPostAuthorID($row['id']));
+
+						#
+						# Печатаем названия категорий в списке тем
+						if ($curr_category != $row['category']) {
+
+							$category_name = $stdout->getCategoryName($row['category']);
+							$curr_category = $row['category'];
+							echo "<h3 class='ps-2 pt-4 ps-sm-4 pt-sm-3 fw-bold text-muted text-uppercase'>$category_name</h3>";
+
+						}
+				?>
+
+						<div class="list-group">
+							<a href="read_topic.php?topic_id=<?=$row['id']?><?php if ($stdout->isNewMessages($row['id'], $_SESSION['USER']['last_login']) && empty($_SESSION['TOPIC_READ'][$row['id']])) print '&read=true'; ?>" class="list-group-item list-group-item-action d-flex gap-2" aria-current="true">
+								<img src="<?php !empty($row['cover']) ? print 'covers/thumbs/' . $row['cover'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$row['name'] . ' обложка'; ?>" class="flex-shrink-0 rounded" width="94" height="94">
+								<div class="d-flex flex-column w-100">
+									<h6 class="d-flex mb-md-3">
+										<span class="fw-bold"><?=$row['name']?></span>
+										<span class="d-none d-md-block badge text-secondary text-bg-light ms-2"><?=$stdout->getCountTopicPosts($row['id'])?></span>
+
+									</h6>
+									<p class="d-block d-sm-none small p-0 m-0"><?=mb_strimwidth(strip_tags($stdout->getLastTopicPost($row['id']), '<br>'), 0, 24, '…')?></p>
+									<p class="d-none d-sm-block d-md-none small p-0 m-0"><?=mb_strimwidth(strip_tags($stdout->getLastTopicPost($row['id']), '<br>'), 0, 96, '…')?></p>
+									<p class="d-none d-md-block p-0 m-0"><?=mb_strimwidth(strip_tags($stdout->getLastTopicPost($row['id']), '<br>'), 0, 128, '…')?></p>
+
+									<span class="small d-md-none text-muted"><?=$timestamp . ', ' . $author?>
+									</span>
+								</div>
+								<div class="position-absolute text-end pe-2 end-0">
+									
+									<span class="d-none d-md-inline text-muted" style="font-size: 0.7em"><?=$timestamp . ', ' . $author?></span>
+
+								</div>
+								<?php require 'lib/print_marker_new_messages.php'; ?>
+							</a>
+						</div>
+				<?php
+					}
+				?>
+
+				<div class="pb-5">&nbsp;</div>
 			</div>
 		</div>
 	</main>

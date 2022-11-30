@@ -12,12 +12,7 @@
 
 <?php
 
-	#
-	# Закрываем страницу для не авторизованных пользователей
 	require 'lib/auth.class.php';
-
-	#
-	# Системный класс
 	require 'lib/system.class.php';
 
 	#
@@ -25,7 +20,7 @@
 	if(!empty($_POST['username']) || !empty($_POST['lastfm']))
 		$stdin->UpdateProfile($_GET['user_id'], $_POST['username'], $_POST['lastfm']);
 	if(!empty($_FILES['user_avatar']['name']))
-		$stdin->UpdateUserAvatar($_GET['user_id'], uploadAvatar($_FILES['user_avatar']));
+		$stdin->UpdateUserAvatar($_GET['user_id'], uploadCoverOrAvatar($_FILES['user_avatar']));
 
 ?>
 
@@ -74,7 +69,7 @@
 			<div class="d-flex">
 				<ul class="nav col-12 my-1 my-md-0 text-small justify-content-evenly">
 					<li class="text-center small">
-						<a href="#" class="nav-link" onclick="history.go(-1); event.preventDefault();">
+						<a href="#" class="nav-link" onclick="history.go(-1); return false;">
 							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="pink" class="bi bi-x" viewBox="0 0 16 16">
 							  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
 							</svg>

@@ -4,45 +4,34 @@
 
 <?php
 
-	#
-	# Закрываем страницу для не авторизованных пользователей
 	require 'lib/auth.class.php';
-
-	#
-	# Системный класс
 	require 'lib/system.class.php';
 
 
 	#
 	# Сохраняем пост переданный из формы редактирования,
 	# распарсиваем форматирование в lib/parser.class.php
-	if(!empty($_POST['blocks']))
-	{
+	#
+	if(!empty($_POST['blocks'])) {
 		require "lib/parser.class.php";
 		$stdin->CreatePost($_SESSION['USER']['user_id'], $_GET['topic_id'], editorParser($_POST['blocks']));
 	}
 
 	#
 	# Сохраняем изменённые данные топика
+	#
 	if(!empty($_POST['topic_name']) && !empty($_POST['topic_first_post']))
 		$stdin->UpdateTopic($_GET['topic_id'], $_POST['topic_name'], $_POST['topic_first_post']);
 	if(!empty($_FILES['topic_cover']['name']))
 		$stdin->UpdateTopicCover($_GET['topic_id'], uploadCover($_FILES['topic_cover']));
 
 
-	#
-	# Закрываем страницу, если не указан ID темы
 	empty($_GET['topic_id']) ? $topic_id = 0 : $topic_id = intval($_GET['topic_id']);
-	if ($topic_id)
-	{
-		#
-		# Получаем информацию о текущем топике
-		$topic = $stdout->GetTopic($topic_id, $_SESSION['USER']['username']);
-		#
-		# Получаем посты в топике
-		$posts = $stdout->ListPosts($topic_id);
-		if (empty($topic) || empty($posts)) die('<meta name="viewport" content="width=device-width, initial-scale=1"><title>Тема не найдена</title><link rel="stylesheet" href="css/bootstrap.min.css"><div class="text-center py-5"><a href="/"><img class="img-fluid" src="system-page-cover.png.webp"></a><h1 class="pt-3">Нет такой темы</h1>Попробуй <a href="/">вернуться на форум</a></div><!-- Что ты здесь хотел увидеть ? -->');
-	} else die('<meta name="viewport" content="width=device-width, initial-scale=1"><title>Тема не найдена</title><link rel="stylesheet" href="css/bootstrap.min.css"><div class="text-center py-5"><a href="/"><img class="img-fluid" src="system-page-cover.png.webp"></a><h1 class="pt-3">Нет такой темы</h1>Попробуй <a href="/">вернуться на форум</a></div><!-- Что ты здесь хотел увидеть ? -->');
+
+	$topic = $stdout->getTopicInfo($topic_id, $_SESSION['USER']['username']); // информация о топике
+	$posts = $stdout->getAllTopicPosts($topic_id); // посты
+
+	if (empty($topic) || empty($posts)) die(NOT_FOUND_TOPIC_ERROR_TEMPLATE);
 
 	#
 	# Отмечаем тему прочитанной,
@@ -54,7 +43,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Закрытый форум Харибда, <?=htmlspecialchars($stdout->FirstPost($topic['id']))?>">
+	<meta name="description" content="Закрытый форум Харибда, <?=htmlspecialchars($stdout->getFirstTopicPost($topic['id']))?>">
 	<title><?=$topic['name']?></title>
 	<link rel="stylesheet" href="css/navbar.css">
 </head>
@@ -106,8 +95,8 @@
 						</a>
 					</div>
 					
-					<?php require 'lib/print_myprofile.php'; ?>
-					<?php require 'lib/print_activity.php'; ?>
+					<?php require 'lib/print_myprofile.php';
+					require 'lib/print_activity.php'; ?>
 				</aside>
 
 			<div class="row">
@@ -197,7 +186,7 @@
 								<input type="text" class="form-control form-control-lg border-0 mb-4" id="topicNameInput" name="NAME" placeholder="Должно точно отражать суть" value="<?=$topic['name']?>">
 
 								<label class="h4 mb-3 fw-bold" for="topicFirstPostInput">Краткое описание:</label>
-								<textarea type="text" class="form-control form-control-lg border-0 mb-4" id="topicFirstPostInput" name="FIRSTPOST" placeholder="Можно использовать стандартные html теги для оформления" rows=12><?=$stdout->FirstPost($topic_id)?></textarea>
+								<textarea type="text" class="form-control form-control-lg border-0 mb-4" id="topicFirstPostInput" name="FIRSTPOST" placeholder="Можно использовать стандартные html теги для оформления" rows=12><?=$stdout->getFirstTopicPost($topic_id)?></textarea>
 
 								<label class="h5 mb-3" for="topicCoverInput">Обложка (необязательно)</label><br>
 								<img class="img-fluid" src="<?php !empty($topic['cover']) ? print 'covers/thumbs/' . $topic['cover'] : print 'https://via.placeholder.com/150' ?>" alt="<?=$topic['name'] . ' обложка'; ?>">

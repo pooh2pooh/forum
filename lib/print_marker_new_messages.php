@@ -4,7 +4,7 @@
 	# Считаем количество новых сообщений,
 	# с момента посдней авторизации пользователя,
 	# и выводим счётчик
-	$marker = $stdout->NewMessages($row['id'], $_SESSION['USER']['last_login']);
+	$marker = $stdout->isNewMessages($row['id'], $_SESSION['USER']['last_login']);
 
 	if ($marker && empty($_SESSION['TOPIC_READ'][$row['id']]))
 	{

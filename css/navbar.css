@@ -4,11 +4,5 @@
   border-bottom: 1px solid rgba(26, 24, 20, 1);
   color: #dfdfdf;
 }
-
-.bg-navbar a.nav-link {
-  color: #dfdfdf;
-  width: 100px !important;
-}
-.bg-navbar a.nav-link:hover {
-  color: #966FD6;
-}
+.bg-navbar a.nav-link { color: #dfdfdf; width: 100px !important; }
+.bg-navbar a.nav-link:hover { color: #966FD6; }

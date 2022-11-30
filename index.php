@@ -14,19 +14,19 @@
 <body class="text-center">
 	<main class="form-signin w-100 m-auto">
 
-<?php
+		<?php
 
-require 'lib/stdout.class.php';
-$stdout = new stdout();
+			require 'lib/stdout.class.php';
+			$stdout = new stdout();
 
-!isset($_SESSION['USER']['username']) ?: header('Location: /forum.php');
-if (isset($_POST['LOGIN']) && isset($_POST['PASSWORD'])) {
+			!isset($_SESSION['USER']['username']) ?: header('Location: /forum.php');
+			if (isset($_POST['LOGIN']) && isset($_POST['PASSWORD'])) {
 
-	($stdout->Auth(md5($_POST['LOGIN']), $_POST['PASSWORD']) ? header('Location: /forum.php') : die("<title>Харибда</title><div class='text-center py-5'><img class='img-fluid' src='system-page-cover.png.webp'></div><!-- Что ты здесь хотел увидеть ? -->"));
-	
-}
+				($stdout->Auth(md5($_POST['LOGIN']), $_POST['PASSWORD']) ? header('Location: /forum.php') : die("<title>Харибда</title><div class='text-center py-5'><img class='img-fluid' src='system-page-cover.png.webp'></div><!-- Что ты здесь хотел увидеть ? -->"));
+				
+			}
 
-?>
+		?>
 
 		<form action="/" method="post">
 

@@ -12,18 +12,13 @@
 
 <?php
 
-	#
-	# Закрываем страницу для не авторизованных пользователей
 	require 'lib/auth.class.php';
-
-	#
-	# Системный класс
 	require 'lib/system.class.php';
 
 	if (!empty($_POST['NAME']) && !empty($_POST['POST']) && !empty($_POST['CATEGORY']))
 	{
 
-		$stdin->CreateTopic($_POST['NAME'], $_POST['POST'], $_POST['CATEGORY'], $_SESSION['USER']['user_id'], uploadCover($_FILES['COVER'])) ? header('Location: /forum.php') : die('Ошибка! Не получилось создать новую тему :(');
+		$stdin->CreateTopic($_POST['NAME'], $_POST['POST'], $_POST['CATEGORY'], $_SESSION['USER']['user_id'], uploadCoverOrAvatar($_FILES['COVER']), false) ? header('Location: /forum.php') : die('Ошибка! Не получилось создать новую тему :(');
 
 	}
 ?>
@@ -44,7 +39,7 @@
 						<label class="h5 mb-3" for="topicCategorySelect">Категория</label>
 						<select class="form-select mb-4" aria-label="Select category topic" id="topicCategorySelect" name="CATEGORY">
 							<?php
-								$categories = $stdout->ListCategories();
+								$categories = $stdout->getAllCategories();
 								foreach($categories as $category)
 								{
 									echo "<option value=$category[id]>$category[name]</option>";
@@ -58,7 +53,7 @@
 
 						<div class="d-grid gap-2">
 							<button type="submit" class="btn btn-success bg-gradient btn-lg w-100">Опубликовать</button>
-							<a href="#" class="btn btn-lg w-100 d-none d-lg-block" onclick="history.go(-1); event.preventDefault();">Закрыть</a>
+							<a href="#" class="btn btn-lg w-100 d-none d-lg-block" onclick="history.go(-1); return false;">Закрыть</a>
 						</div>
 						
 					</div>
