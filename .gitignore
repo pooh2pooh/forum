@@ -1,4 +1,4 @@
 lib/Database.lib.php
-covers/
-avatars/
+uploads/
+frontend/html/cache/
 .idea
