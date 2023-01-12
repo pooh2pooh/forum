@@ -28,7 +28,7 @@
 					$_SESSION['USER']['lastfm_account'] = $profile['lastfm_account'];
 
 					$stmt = $this->db->prepare('UPDATE users SET last_login = :last_login WHERE login = :login');
-					$stmt->execute(['last_login' => $startTime, 'login' => $login]);
+					$stmt->execute(['last_login' => date("Y-m-d H:i:s"), 'login' => $login]);
 
 					$activity = $this->db->prepare('INSERT INTO activity (username, action) VALUES (:username, :action)');
 					$activity->execute(['username' => $profile['username'], 'action' => 'авторизовался']);
@@ -40,8 +40,14 @@
 
 		function getActivity()
 		{
-			$stmt = $this->db->query('SELECT * FROM activity ORDER BY id DESC');
-			return $stmt->fetchAll(PDO::FETCH_ASSOC);
+			try {
+				$stmt = $this->db->query('SELECT * FROM activity ORDER BY id DESC');
+				return $stmt->fetchAll(PDO::FETCH_ASSOC);
+			} catch (PDOException $e) {
+				// print $e for Log here!
+				return false;
+			}
+			
 		}
 
 		function getConfig(string $name)
@@ -54,18 +60,23 @@
 
 		function getProfile(string $login, string $who = 'Haribda')
 		{
-			// Возвращает массив со всеми данными профиля из базы
-			$stmt = $this->db->prepare("SELECT * FROM users WHERE login = :login");
-			$stmt->execute(['login' => $login]);
-			$profile = $stmt->fetch(PDO::FETCH_ASSOC);
+			try {
+				// Возвращает массив со всеми данными профиля из базы
+				$stmt = $this->db->prepare("SELECT * FROM users WHERE login = :login");
+				$stmt->execute(['login' => $login]);
+				$profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
-			if ($profile) {
-				$username = $profile['username'];
-				$activity = $this->db->prepare('INSERT INTO activity (username, action) VALUES (:username, :action)');
-				$activity->execute(['username' => $who, 'action' => 'смотрел(а) профиль ' . $username]);
+				if ($profile && strcmp($who, $profile['username'])) {
+					$username = $profile['username'];
+					$activity = $this->db->prepare('INSERT INTO activity (username, action) VALUES (:username, :action)');
+					$activity->execute(['username' => $who, 'action' => 'смотрел(а) профиль ' . $username]);
+				}
+
+				return $profile;
+			} catch (PDOException $e) {
+				// print $e for Log here!
+				return false;
 			}
-
-			return $profile;
 		}
 
 		function getUserNameByID(int $id)
@@ -85,8 +96,13 @@
 		function getUserAvatarByID(int $id)
 		{
 			$stmt = $this->db->prepare('SELECT avatar FROM users WHERE id = :id');
-			$stmt->execute(['id' => $id]);
-			return $stmt->fetchColumn();
+			try {
+				$stmt->execute(['id' => $id]);
+				return $stmt->fetchColumn();
+			} catch (PDOException $e) {
+				// print $e for Log here!
+				return false;
+			}
 		}
 
 		function getLastPostAuthorID(int $topic_id)
@@ -99,24 +115,35 @@
 
 		function getAllTopics()
 		{
-			$stmt = $this->db->query('SELECT * FROM topics ORDER BY category DESC');
-			return $stmt->fetchAll(PDO::FETCH_ASSOC);
+			try {
+				$stmt = $this->db->query('SELECT * FROM topics ORDER BY category DESC');
+				return $stmt->fetchAll(PDO::FETCH_ASSOC);
+			} catch (PDOException $e) {
+				// print $e for Log here!
+				return false;
+			}
 		}
 
 		function getTopicInfo(int $topic_id, string $who = 'Haribda')
 		{
-			$stmt = $this->db->prepare("SELECT * FROM topics WHERE id = :topic_id");
-			$stmt->execute(['topic_id' => $topic_id]);
-			$topic = $stmt->fetch(PDO::FETCH_ASSOC);
 
-			if ($topic)
- 			{
- 				$topic_name = $topic['name'];
- 				$activity = $this->db->prepare('INSERT INTO activity (username, action) VALUES (:username, :action)');
-				$activity->execute(['username' => $who, 'action' => 'смотрел(а) тему ' . $topic_name]);
+			try {
+				$stmt = $this->db->prepare("SELECT * FROM topics WHERE id = :topic_id");
+				$stmt->execute(['topic_id' => $topic_id]);
+				$topic = $stmt->fetch(PDO::FETCH_ASSOC);
+
+				if ($topic)
+	 			{
+	 				$topic_name = $topic['name'];
+	 				$activity = $this->db->prepare('INSERT INTO activity (username, action) VALUES (:username, :action)');
+					$activity->execute(['username' => $who, 'action' => 'смотрел(а) тему ' . $topic_name]);
+				}
+
+				return $topic;
+			} catch (PDOException $e) {
+				// print $e for Log here!
+				return false;
 			}
-
-			return $topic;
 		}
 
 		function isNewMessages(int $topic_id, $timestamp)
@@ -137,9 +164,14 @@
 		}
 		function getAllTopicPosts(int $topic_id)
 		{
-			$stmt = $this->db->prepare('SELECT * FROM posts WHERE topic_id = :topic_id ORDER BY id');
-			$stmt->execute(['topic_id' => $topic_id]);
-			return $stmt->fetchAll(PDO::FETCH_ASSOC);
+			try {
+				$stmt = $this->db->prepare('SELECT * FROM posts WHERE topic_id = :topic_id ORDER BY id');
+				$stmt->execute(['topic_id' => $topic_id]);
+				return $stmt->fetchAll(PDO::FETCH_ASSOC);
+			} catch (PDOException $e) {
+				// print $e for Log here!
+				return false;
+			}
 		}
 
 		function getFirstTopicPost(int $topic_id)
@@ -179,5 +211,7 @@
 		}
 
 	}
+
+	$stdout = new stdout();
 
 ?>

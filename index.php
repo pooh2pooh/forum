@@ -1,59 +1,19 @@
-<?php session_start(); ?>
-<!DOCTYPE html>
-<html lang="ru">
+<?php
+	
 
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Закрытый форум Харибда, получить приглашение сюда можно только от действующего участника, после чего нужно повысить уровень аккаунта из временного, — в постоянный. Удачи 🌹">
-	<title>Харибда</title>
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/signin.css" rel="stylesheet">
-</head>
+	session_start();
 
-<body class="text-center">
-	<main class="form-signin w-100 m-auto">
+	require 'lib/system.class.php';
+	
 
-		<?php
+	if (isset($_POST['LOGIN']) && isset($_POST['PASSWORD']) && !isset($_SESSION['USER']['username']))
+		$stdout->Auth(md5($_POST['LOGIN']), $_POST['PASSWORD']) ?
+            $style->load('frontend/html/forum.html') :
+            $style->load('frontend/html/failed_auth.html');
+	else {
+    !isset($_SESSION['USER']['username']) ?
+        $style->load('frontend/html/main_page.html') :
+        $style->load('frontend/html/forum.html');
+  }
 
-			require 'lib/stdout.class.php';
-			$stdout = new stdout();
-
-			!isset($_SESSION['USER']['username']) ?: header('Location: /forum.php');
-			if (isset($_POST['LOGIN']) && isset($_POST['PASSWORD'])) {
-
-				($stdout->Auth(md5($_POST['LOGIN']), $_POST['PASSWORD']) ? header('Location: /forum.php') : die("<title>Харибда</title><div class='text-center py-5'><img class='img-fluid' src='system-page-cover.png.webp'></div><!-- Что ты здесь хотел увидеть ? -->"));
-				
-			}
-
-		?>
-
-		<form action="/" method="post">
-
-			<div class="form-floating">
-				<input type="text" class="form-control" id="inputLogin" name="LOGIN" placeholder="username">
-				<label for="inputLogin">позывной</label>
-			</div>
-			<div class="form-floating">
-				<input type="password" class="form-control" id="inputPassword" name="PASSWORD" placeholder="password">
-				<label for="inputPassword">пароль</label>
-
-			</div>
-
-			<button class="w-100 btn btn-lg btn-primary bg-gradient mt-3" type="submit">Вход</button>
-
-
-			<p class="mt-5 mb-3 badge text-dark">
-				С
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
-					<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-				</svg>
-				из России
-			</p>
-		</form>
-	</main>
-
-	<script src="js/bootstrap.bundle.min.js" defer></script>
-</body>
-
-</html>
+?>

@@ -80,3 +80,5 @@
 		}
 
 	}
+
+    $stdin 	= new stdin();
